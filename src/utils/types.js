@@ -3,7 +3,7 @@ export const UserStatus = {
   LoggingIn: "Logging In",
   LoggedOut: "Logged Out",
   LogInError: "Log In Error",
-  VerifyingLogIn: "Verifying Log In",
+  VerifyingLogin: "Verifying Log In",
   NotStarted: "Not Started", // Pin.jsx에서 사용될 수 있는 NotStarted 추가
   Authenticating: "Authenticating", // App.jsx에서 사용될 수 있는 Authenticating 추가
   Authenticated: "Authenticated", // App.jsx에서 사용될 수 있는 Authenticated 추가

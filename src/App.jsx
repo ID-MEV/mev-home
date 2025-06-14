@@ -8,6 +8,7 @@ import Info from './components/Info';
 import { AppContext } from './contexts/AppContext';
 import { UserStatus } from './utils/types';
 import classNames from 'classnames';
+import Dashboard from './components/Dashboard/Dashboard';
 
 const App = () => {
   const { userStatus, setUserStatusTo } = useContext(AppContext);
@@ -46,6 +47,7 @@ const App = () => {
       <Info id="app-info"/>
       <Pin />
       {userStatus === UserStatus.VerifyingLogin && <Loading />} {/* Loading은 verifying-log-in 상태일 때 보임 */}
+      {userStatus === UserStatus.LoggedIn && <Dashboard />} 
     </div>
   );
 };

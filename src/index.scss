@@ -1,6 +1,7 @@
 // src/index.scss
 @import "@fortawesome/fontawesome-svg-core/styles.css";
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css");
+@import './styles/dashboard';
 
 @function gray($color){
   @return rgb($color, $color, $color);
@@ -194,7 +195,7 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
 }
 
 #app {
-  background-color: gray(30);
+  // background-color: gray(30);
   width: 100%;
   height: 100vh; // 뷰포트 전체 높이를 채움
   position: relative; // 자식 absolute 요소의 기준점
@@ -243,7 +244,8 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
   &.verifying-log-in {
     #app-loading-icon {
       opacity: 1;
-      transform: translate(-50%, -50%);
+      pointer-events: all;
+      transform: none;
     }
   }
   
@@ -285,19 +287,25 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
   }
   
   #app-loading-icon {
-    left: 50%;
-    opacity: 0;
-    pointer-events: none;
     position: absolute;
-    top: 50%;
-    transform: translate(-50%, 0%);
-    transition: opacity 250ms, transform 250ms;
-    z-index: 2;
-    
-    i {
-      animation: 2s spin ease-in-out infinite;
-      color: white;
-      font-size: 2em;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* ✨ 충분히 높은 z-index. 너무 높으면 다른 요소가 가려지니 1000정도가 무난합니다. */
+    background: rgba(0, 0, 0, 0.3); /* 로딩 중 배경을 살짝 어둡게 (원래 의도했던 어두운 정도) */
+    opacity: 0; /* ✨✨✨ 초기에는 투명하게 숨깁니다. ✨✨✨ */
+    pointer-events: none; /* ✨✨✨ 초기에는 마우스 클릭 등을 무시합니다. ✨✨✨ */
+    transform: none; /* 특별한 변형은 주지 않습니다. */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* ✨✨✨ 부드러운 전환 효과를 다시 적용합니다. ✨✨✨ */
+
+    i { // 로딩 아이콘 (스피너) 자체 스타일
+      animation: spin 1.5s linear infinite; /* 회전 애니메이션 속도 및 방식 */
+      color: #ffffff; /* 아이콘 색상 (흰색) */
+      font-size: 4em; /* 아이콘 크기 */
     }
   }
   

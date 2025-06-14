@@ -34,7 +34,7 @@ const Pin = () => { // <-- ': React.FC' 부분을 삭제합니다.
     if (pin.length === 4) {
       const verify = async () => { // <-- ': Promise<void>' 부분을 삭제합니다.
         try {
-          setUserStatusTo(UserStatus.VerifyingLogIn);
+          setUserStatusTo(UserStatus.VerifyingLogin);
 
           if (await LogInUtility.verify(pin)) {
             setUserStatusTo(UserStatus.LoggedIn);

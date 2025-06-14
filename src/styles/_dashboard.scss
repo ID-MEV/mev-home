@@ -1,0 +1,216 @@
+// src/styles/_dashboard.scss (새로 만든 파일)
+
+/* --- Dashboard 컴포넌트 관련 스타일 --- */
+#app-menu {
+    display: flex;
+//    width: 100%;
+//    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-family: 'Rubik', sans-serif;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: calc(100% - 100px);   /* 양쪽(좌우)에 50px씩 여백을 주기 위해 100%에서 100px을 뺌 */
+    height: calc(100% - 60px);   /* 상하에 30px씩 여백을 주기 위해 100%에서 60px을 뺌 */
+    margin: 30px 50px;           /* 상하 30px, 좌우 50px의 바깥 여백을 줍니다. */
+    border-radius: 15px;         /* 대시보드 전체 모서리를 둥글게 합니다. */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 대시보드 자체에 그림자 추가 (선택 사항) */
+    min-height: calc(100vh - 100px);
+  }
+  
+  .dashboard-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .dashboard-sidebar {
+    width: 80px;
+    flex-shrink: 0;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    
+  //  background: linear-gradient(to bottom, #2C3E50, #2C3E50); /* 시작과 끝 색상을 동일하게 하여 단색 효과 */
+  // 또는 조금 더 미묘한 그라데이션:
+  // background: linear-gradient(to bottom, #2C3E50, #243447);
+  /* 2. 톤 다운된 남색 계열 (차분하고 전문적) */
+  // background: linear-gradient(to bottom, #2E3A59, #232B40);
+  /* 3. 아주 짙은 청록색 계열 (깊이 있고 시원한 느낌) */
+   background: linear-gradient(to bottom, #1E4040, #173333);
+  /* 4. 기존 보라색에서 톤을 깊게 */
+  // background: linear-gradient(to bottom, #300080, #200060);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+  }
+  
+  .sidebar-item {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+  
+    /* ✨✨✨ 사이드바 아이템 아이콘 색상 옵션 (선택하여 주석 해제 후 사용) ✨✨✨ */
+    /* 비활성화된 아이콘의 기본 색상 */
+    color: rgba(255, 255, 255, 0.7); /* 기존 0.6에서 조금 더 밝게 */
+    // color: #BBBBBB; /* 약간 회색빛 흰색 */
+    // color: #A0A0A0; /* 더 어두운 회색빛 흰색 */
+  
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+  
+    &:hover {
+      /* 호버 시 배경색 및 아이콘 색상 */
+      background: rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.9); /* 기존 0.8에서 더 밝게 */
+      // color: #FFFFFF; /* 호버 시 완전한 흰색 */
+    }
+  
+    &.active {
+      /* 활성화된 탭의 배경색 및 아이콘 색상 */
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      position: relative;
+  
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 5px;
+  
+        /* ✨✨✨ 활성화 표시 막대 색상 옵션 (선택하여 주석 해제 후 사용) ✨✨✨ */
+        /* 사이드바 배경 색상과 어울리는 강조 색상 선택 */
+        background-color: #1E4040; /*  */
+        // background-color: #77EEAA; /* 밝은 민트 */
+        // background-color: #FFD700; /* 황금색 */
+        // background-color: #F06292; /* 분홍색 */
+        // background-color: #A064FF; /* 기존의 보라색 */
+      }
+    }
+  }
+  
+  .dashboard-main-content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+  
+  .tab-content {
+    h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    h3 {
+      font-size: 1.8em;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .profile-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(to bottom right, #8A2BE2, #A064FF);
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    color: white;
+    margin-right: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-info {
+    h2 {
+      font-size: 2.8em;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+    p {
+      font-size: 1.1em;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .collaborators {
+      font-size: 0.9em;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 10px;
+    }
+  }
+  
+  .section-title {
+    font-size: 1.5em;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .recent-visit-item {
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  /* App.jsx 에서 logged-in 상태일 때 배경 블러 제거 및 대시보드 표시 */
+  #app.logged-in {
+    #app-background-image {
+      filter: none;
+    }
+    #app-menu {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0%);
+    }
+    #app-info,
+    #sign-in-button-wrapper,
+    #app-pin-wrapper,
+    #app-loading-icon {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .logout-button {
+    position: absolute; /* 부모인 .dashboard-sidebar에 대해 절대 위치 */
+    bottom: 0; /* 하단에 붙입니다. */
+    left: 0;
+    width: 100%; /* 사이드바 너비만큼 차지 */
+    height: 60px; /* 탭 아이템과 동일한 높이 */
+    /* 배경, 글씨색, 호버 효과 등은 .sidebar-item을 따르도록 합니다. */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* 상단에 구분선 */
+    z-index: 10; /* 다른 요소 위에 표시 */
+  }
