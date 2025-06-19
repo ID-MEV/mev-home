@@ -5,6 +5,7 @@ import { UserStatus } from '../../utils/types'; // UserStatus 타입을 임포�
 import HomeTab from './TabContents/HomeTab';
 import NotesTab from './TabContents/NotesTab';
 import SearchTab from './TabContents/SearchTab';
+import SettingsTab from './TabContents/SettingsTab';
 
 // 아직 생성되지 않은 탭 컴포넌트들은 주석 처리합니다.
 // import CalendarTab from './TabContents/CalendarTab';
@@ -66,6 +67,14 @@ const Dashboard = () => {
           */}
           {/* 이 부분에 더 많은 탭 아이템을 추가할 수 있습니다. */}
 
+          {/* ✨ 4. 설정 탭 아이템 추가 (로그아웃 버튼 바로 위) ✨ */}
+          <div
+            className={`sidebar-item bot ${activeTab === 'settings' ? 'active' : ''}`}
+            onClick={() => setActiveTab('settings')} // 클릭 시 'settings' 탭으로 변경
+          >
+            <i className="fa-solid fa-gear"></i> {/* Font Awesome 톱니바퀴 아이콘 */}
+          </div>
+
           <div
             className="sidebar-item logout-button"
             onClick={handleLogout}
@@ -84,6 +93,7 @@ const Dashboard = () => {
           {activeTab === 'home' && <HomeTab />}       {/* activeTab이 'home'일 때 HomeTab 컴포넌트 렌더링 */}
           {activeTab === 'notes' && <NotesTab />}     {/* activeTab이 'notes'일 때 NotesTab 컴포넌트 렌더링 */}
           {activeTab === 'search' && <SearchTab />}   {/* activeTab이 'search'일 때 SearchTab 컴포넌트 렌더링 */}
+          {activeTab === 'settings' && <SettingsTab />}
           
           {/* --- 아직 생성되지 않은 탭의 콘텐츠 (주석 처리) --- */}
           {/* 나중에 CalendarTab, AnalyticsTab, CalculatorTab 파일을 만들면,

@@ -56,9 +56,8 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(5px); /* ✨ 20px -> 10px로 줄여서 움직임을 미세하게 */
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -66,5 +65,5 @@
 }
 
 .fade-in {
-  animation: fadeIn 0.8s ease-out;
+  animation: fadeIn 0.2s ease-in-out;
 }

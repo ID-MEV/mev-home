@@ -18,7 +18,9 @@ const Time = () => { // <-- ': React.FC' 부분을 삭제합니다.
   return (
     <div id="app-time"> {/* id 추가 (CSS 적용 위함) */}
       <div id="app-time-time">
-        {T.formatHours(date.getHours())}:{T.formatSegment(date.getMinutes())}
+        {T.formatHours(date.getHours())}
+        <span className='time-colon'>:</span>
+        {T.formatSegment(date.getMinutes())}
       </div>
       <div id="app-time-meridiem">
         {date.getHours() >= 12 ? "PM" : "AM"}

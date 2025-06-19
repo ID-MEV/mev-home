@@ -134,7 +134,7 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
     // HTML 구조에 맞게 ID/클래스 사용
     #app-time {
         color: gray(245); // 흰색에 가까운 회색
-        font-size: 80px;
+        font-size: 13vw;
         font-weight: bold;
         display: flex; // 시와 분/오전을 가로로 정렬
         align-items: flex-end; // PM/AM과 높이 정렬
@@ -143,6 +143,12 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
 
     #app-time-time {
         text-shadow: 2px 2px 2px rgba(black, 0.1); // 그림자 효과
+        .time-colon { /* ✨ Time.jsx에서 추가한 콜론 span에 대한 스타일 ✨ */
+          animation: blink 1s steps(1, start) infinite; /* 깜빡임 애니메이션 적용 */
+          // 'steps(1, start)'는 초에 맞춰 뚝뚝 끊어지는 깜빡임을 만듭니다.
+          // 1초마다 (1s) 애니메이션이 반복됩니다.
+          color: gray(245);
+      }
     }
 
     #app-time-meridiem {
@@ -227,6 +233,15 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
     #app-background {
       #app-background-image {
         filter: blur(8px);
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &.logged-in {
+    #app-background {
+      #app-background-image {
+        filter: blur(1px);
         transform: scale(1.2);
       }
     }
@@ -467,27 +482,6 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
     }
   }
   
-  #youtube-link {
-    align-items: center;
-    display: inline-flex;
-    gap: 5px;
-    margin-top: 10px;
-    padding: 10px 20px;
-    text-decoration: none;
-    
-    i, span {
-      height: 20px;
-      line-height: 20px;
-    }
-    
-    i {
-      color: $red;
-    }
-    
-    span {
-      color: white;
-    }
-  }
   
   .menu-section {
     margin-top: 60px;
@@ -516,321 +510,7 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
       padding-top: 5px;
     }
   }
-  
-  #restaurants-section { 
-    .menu-section-content {
-      display: flex;
-      gap: 1em;
-      
-      .restaurant-card {
-        border-radius: 10px;
-        box-shadow: 2px 2px 4px rgba(black, 0.25);
-        cursor: pointer;
-        height: 14vw;
-        max-height: 240px;
-        position: relative;
-        transition: transform 250ms;
-        width: 25%;
-        
-        &:hover {
-          transform: translateY(-5px);
-          
-          .restaurant-card-content {
-            .restaurant-card-content-items {
-              margin-bottom: 30px;
-            }
-          }
-        }
-        
-        .restaurant-card-content {
-          background: linear-gradient(to top, rgba(black, 0.8), transparent);
-          border-radius: 10px;
-          height: 100%;
-          width: 100%;
-          
-          .restaurant-card-content-items {
-            bottom: 0px;
-            display: flex;
-            flex-direction: column;
-            margin: 20px;
-            position: absolute;
-            right: 0px;
-            text-align: right;
-            transition: margin 250ms;
-            
-            .restaurant-card-title {
-              color: gray(245);
-              font-size: 1.5em;
-            }
 
-            .restaurant-card-desc {
-              color: $blue;
-              font-size: 0.9em;
-            }
-          }
-        }
-      }
-    }
-  }
-  
-  #weather-section {
-    .menu-section-content {
-      display: flex;
-      gap: 1em;
-      padding: 5px 0px;
-      width: 100%;       
-
-      .day-card {
-        backdrop-filter: blur(3px);
-        background-color: rgba(white, 0.1);
-        border: 1px solid rgba(white, 0.2);
-        border-radius: 10px;
-        box-shadow: 2px 2px 4px rgba(black, 0.25);
-        height: 8vw;
-        max-height: 160px;
-        min-height: 140px;
-        min-width: 180px;
-        position: relative;
-        transition: transform 250ms;
-        width: calc(100% / 7);
-        
-        &:last-of-type {
-          margin-right: 5px;
-        }
-
-        .day-card-content {
-          display: flex;
-          flex-direction: column;
-          height: calc(100% - 20px);
-          justify-content: space-evenly;
-          padding: 10px;
-
-          i, span {
-            color: gray(245);
-            text-align: center;
-          }
-
-          .day-weather-temperature {
-            align-items: flex-start;
-            display: flex;
-            font-size: 0.9em;
-            justify-content: center;
-
-            .day-weather-temperature-unit {
-              font-size: 0.8em;
-              margin-left: 3px;
-            }
-          }
-
-          .day-weather-icon {
-            font-size: 3.5em;
-            text-shadow: 2px 2px 2px rgba(black, 0.1);
-
-            &.sunny {
-              color: $yellow;
-            }
-
-            &.rainy,
-            &.stormy {
-              color: $blue;
-            }
-          }
-
-          .day-name {
-            font-size: 0.9em;
-            text-transform: uppercase;
-          }
-        }
-      }
-    }
-  }
-  
-  #tools-section {
-    .menu-section-content {
-      display: flex;
-      gap: 1em;
-      
-      .tool-card {
-        background-color: gray(30);
-        border-radius: 10px;
-        box-shadow: 2px 2px 4px rgba(black, 0.25);
-        cursor: pointer;
-        height: 8vw;
-        max-height: 160px;
-        min-height: 140px;
-        overflow: hidden;
-        position: relative;
-        transition: transform 250ms;
-        width: calc(100% / 6);
-        
-        &:hover {
-          transform: translateY(-5px);
-          
-          .tool-card-background {
-            filter: grayscale(25%);
-          }
-        }
-        
-        .tool-card-background {
-          border-radius: 10px;
-          filter: grayscale(100%);
-          height: 100%;
-          left: 0px;
-          opacity: 0.5;
-          position: absolute;
-          top: 0px;
-          transition: filter 250ms;
-          width: 100%;
-        }
-        
-        .tool-card-content {
-          background: linear-gradient(to right, rgba(black, 0.4), rgba(black, 0.1));
-          border-radius: 10px;
-          display: flex;
-          flex-direction: column;
-          height: calc(100% - 40px);
-          justify-content: space-between;
-          padding: 20px;
-          position: relative;
-          width: calc(100% - 40px);
-          z-index: 2;
-          
-          .tool-card-content-header {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-
-            .tool-card-label {
-              color: $blue;
-              font-size: 0.8em;
-              text-transform: uppercase;
-            }
-
-            .tool-card-name {
-              color: gray(245);
-              font-size: 1.25em;
-            }
-          }
-
-          .tool-card-icon {
-            color: gray(245);
-            font-size: 2em;
-          }
-        }
-      }
-    }
-  }
-  
-  #movies-section {
-    .menu-section-content {
-      display: flex;
-      gap: 1em;
-      
-      #movie-card-1 {
-        .movie-card-content {
-          background: linear-gradient(to top, rgba($indigo, 0.4), transparent, rgba(black, 0.4));
-        }
-      }
-        
-      #movie-card-2 {
-        .movie-card-content {
-          background: linear-gradient(to top, rgba($violet, 0.4), transparent, rgba(black, 0.4));
-        }
-      }
-        
-      #movie-card-3 {
-        .movie-card-content {
-          background: linear-gradient(to top, rgba($red, 0.4), transparent, rgba(black, 0.4));
-        }
-      }
-        
-      #movie-card-4 {
-        .movie-card-content {
-          background: linear-gradient(to top, rgba($green, 0.4), rgba(black, 0.1), rgba(black, 0.4));
-        }
-      }
-        
-      .movie-card {
-        background-color: gray(30);
-        border-radius: 10px;
-        box-shadow: 2px 2px 4px rgba(black, 0.25);
-        cursor: pointer;
-        height: 40vw;
-        max-height: 600px;
-        min-height: 460px;
-        min-width: 260px;
-        overflow: hidden;
-        position: relative;
-        transition: transform 250ms;
-        width: calc(100% / 4);
-        
-        &:hover {
-          transform: translateY(-5px);
-          
-          .movie-card-background {
-            transform: scale(1.05);
-          }
-          
-          .movie-card-content {
-            i {
-              transform: translate(-20%, -20%) scale(1.2);
-            }
-          }
-        }
-        
-        .movie-card-background {
-          border-radius: 10px;
-          height: 100%;
-          left: 0px;
-          position: absolute;
-          top: 0px;
-          transition: transform 250ms;
-          width: 100%;
-          z-index: 1;
-        }
-        
-        .movie-card-content {
-          background: linear-gradient(to top, rgba(black, 0.5), rgba(black, 0.1), rgba(black, 0.4));
-          border-radius: 10px;
-          height: 100%;
-          position: relative;
-          z-index: 2;
-          
-          .movie-card-info {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            padding: 30px;
-            
-            span {
-              text-shadow: 2px 2px 2px rgba(black, 0.1);
-            }
-            
-            .movie-card-title {
-              color: gray(245);
-              font-size: 2em;
-            }
-            
-            .movie-card-desc {
-              color: gray(200);
-              font-size: 0.9em;
-            }
-          }
-          
-          i {
-            bottom: 0px;
-            color: gray(245);
-            font-size: 5em;
-            padding: 30px;
-            position: absolute;
-            right: 0px;
-            text-shadow: 2px 2px 2px rgba(black, 0.1);
-            transition: transform 250ms;
-          }
-        }
-      }
-    }
-  }
   
   #app-pin-wrapper {
     left: 50%;
@@ -992,37 +672,6 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
       right: 0px;
       transform: translate(40px, 0px);
     }
-    
-    #app-menu {
-      #app-menu-content-wrapper {
-        padding: 30px;
-        
-        #app-menu-content {
-          #restaurants-section {  
-            .menu-section-content {
-              flex-wrap: wrap;
-
-              .restaurant-card {
-                height: 30vw;
-                max-height: 300px;
-                position: relative;
-                width: calc(50% - 0.5em);
-              }
-            }
-          }
-          
-          #tools-section {
-            .menu-section-content {
-              flex-wrap: wrap;
-              
-              .tool-card {
-                width: calc(33.33% - 0.69em);
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }
 
@@ -1038,54 +687,6 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
     
     .user-status-button {
       width: 60px;
-    }
-  
-    #app-menu {
-      #app-menu-content-wrapper {
-        #app-menu-content {  
-          #restaurants-section {  
-            .menu-section-content {
-              flex-direction: column;
-
-              .restaurant-card {
-                height: 40vw;
-                position: relative;
-                width: 100%;
-              }
-            }
-          }
-          
-          #tools-section {
-            .menu-section-content {
-              flex-wrap: wrap;
-              
-              .tool-card {
-                width: calc(50% - 0.5em);
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media(max-width: 400px) {
-  #app {
-    #app-menu {
-      #app-menu-content-wrapper {
-        #app-menu-content {
-          #tools-section {
-            .menu-section-content {
-              flex-wrap: wrap;
-              
-              .tool-card {
-                width: 100%;
-              }
-            }
-          }
-        }
-      }
     }
   }
 }
