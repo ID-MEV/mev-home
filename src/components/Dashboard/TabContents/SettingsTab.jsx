@@ -1,9 +1,26 @@
 // src/components/Dashboard/TabContents/SettingsTab.jsx
 import React from 'react';
+// import { useState } from 'react';
+
+// function WearherAPI() {
+//     const [city, setCity] = useState();
+
+//     const hinputchage = ()=> {
+
+//     }
+// }
 
 const SettingsTab = () => {
     return (
         <div className="settings-container fade-in">
+            {/* <h1>날씨 앱</h1>
+            <input
+                type="text"
+                placeholder="도시를 입력"
+                value={city}
+                onChange={hinputchage}></input>
+            <button>날씨 정보 인확</button> */}
+            
             <h2>설정</h2>
             <p>여기는 설정 페이지입니다. 앱의 다양한 설정을 관리할 수 있습니다.</p>
             {/* 여기에 향후 앱 설정과 관련된 UI 요소를 추가할 수 있습니다. */}
