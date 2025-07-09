@@ -1,5 +1,5 @@
 // src/components/Dashboard/Dashboard.jsx
-import React, { useState, useContext } from 'react'; // useContext 훅을 임포트합니다.
+import React, { useState, useContext, useEffect } from 'react'; // useContext, useEffect 훅을 임포트합니다.
 import { AppContext } from '../../contexts/AppContext'; // AppContext를 임포트합니다.
 import { UserStatus } from '../../utils/types'; // UserStatus 타입을 임포트합니다.
 import HomeTab from './TabContents/HomeTab';
@@ -15,9 +15,46 @@ import SettingsTab from './TabContents/SettingsTab';
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState('home');
   const { setUserStatusTo } = useContext(AppContext);
+
+  // 로그아웃 핸들러 함수
   const handleLogout = () => {
-    setUserStatusTo(UserStatus.LoggedOut);}
-    
+    setUserStatusTo(UserStatus.LoggedOut);
+  };
+
+  // 키보드 이벤트 핸들러를 추가하는 useEffect 훅
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case '1':
+          setActiveTab('home'); // '1' 키를 누르면 홈 탭으로 이동
+          break;
+        case '2':
+          setActiveTab('search'); // '2' 키를 누르면 검색 탭으로 이동
+          break;
+        case '3':
+          setActiveTab('notes'); // '3' 키를 누르면 메모 탭으로 이동
+          break;
+        case '4':
+          setActiveTab('settings'); // '4' 키를 누르면 설정 탭으로 이동
+          break;
+        case 'q':
+          handleLogout(); // 'q' 키를 누르면 로그아웃
+          break;
+        default:
+          // 다른 키 입력은 무시
+          break;
+      }
+    };
+
+    // window 객체에 키다운 이벤트 리스너 추가
+    window.addEventListener('keydown', handleKeyDown);
+
+    // 컴포넌트 언마운트 시 이벤트 리스너 제거 (클린업 함수)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleLogout]); // handleLogout 함수가 변경될 때마다 이펙트를 다시 실행
+
   return (
     <div id="app-menu">
       <div className="dashboard-container">
