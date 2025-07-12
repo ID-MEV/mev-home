@@ -5,6 +5,7 @@ import { UserStatus } from '../utils/types'; // UserStatus 임포트
 const AppProvider = ({ children }) => {
   const [userStatus, setUserStatus] = useState(UserStatus.LoggedOut);
   const [region, setRegion] = useState(''); // 지역 상태 추가
+  const [selectedBackground, setSelectedBackground] = useState('/backgrounds/main1.jpeg'); // 배경화면 상태 추가
 
   const setUserStatusTo = useCallback((status) => {
     setUserStatus(status);
@@ -20,6 +21,8 @@ const AppProvider = ({ children }) => {
     setUserStatusTo,
     region, // context에 추가
     setRegionTo, // context에 추가
+    selectedBackground,
+    setSelectedBackground,
   };
 
   return (
