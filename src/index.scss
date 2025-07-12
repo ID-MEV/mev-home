@@ -203,7 +203,7 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
 #app {
   // background-color: gray(30);
   width: 100%;
-  height: 100vh; // 뷰포트 전체 높이를 채움
+  height: 100dvh; // 뷰포트 전체 높이를 채움
   position: relative; // 자식 absolute 요소의 기준점
   overflow: hidden; // 내용이 넘칠 경우 숨김
   display: flex;
@@ -700,3 +700,4 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
     }
   }
 }
+
