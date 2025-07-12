@@ -2,10 +2,10 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../../../contexts/AppContext';
 
-// Vite's glob import feature
+// Vite의 glob import 기능을 사용하여 public 폴더의 배경화면을 동적으로 가져옵니다.
 const backgroundModules = import.meta.glob('/public/backgrounds/*.{jpeg,jpg,png,gif}');
 
-// Optional: Map filenames to pretty names
+// 파일 이름을 예쁜 이름으로 매핑 (선택 사항)
 const backgroundNameMap = {
   'main1.jpeg': '웅장한 숲',
   'main2.jpg': '구름과 달',
@@ -29,16 +29,18 @@ const SettingsTab = () => {
     };
 
     const handleBackgroundChange = (path) => {
+        // 컨텍스트의 함수를 호출하면 AppProvider가 서버에 저장합니다.
         setSelectedBackground(path);
         alert('배경화면이 변경되었습니다.');
     };
 
     const cities = ['Seoul', 'Incheon', 'Gwangju', 'SettingTab 21번줄에 추가하기'];
 
+    // backgroundModules 객체를 기반으로 선택 옵션을 생성합니다.
     const backgroundOptions = Object.keys(backgroundModules).map(path => {
         const fileName = path.split('/').pop();
         const name = backgroundNameMap[fileName] || fileName.split('.').slice(0, -1).join('.');
-        const publicPath = path.replace('/public', '');
+        const publicPath = path.replace('/public', ''); // public 경로를 제거하여 URL로 사용
         return { name, path: publicPath };
     });
 
