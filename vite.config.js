@@ -1,22 +1,23 @@
-// GNU nano 6.2           vite.config.js
-import { defineConfig, loadEnv } from 'vite' // loadEnv를 임포트
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig, loadEnv } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => { // defineConfig를 함수 형태로 변경하고 mode 인자를 받도록 합니다.
-  // 이 부분에서 env 변수를 정의합니다.
+export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), 'VITE_APP_');
 
-  // 이 return 문으로 전체 설정을 감싸야 합니다.
+  // allowedHosts 배열에 두 개의 환경 변수 값을 모두 추가합니다.
+  const allowedHosts = [env.VITE_APP_ALLOWED_HOST, env.VITE_APP_ALLOWED_HOST_WWW];
+
   return {
     plugins: [react()],
     server: {
-      host: '0.0.0.0', // 외부 접속 허용
-      allowedHosts: [env.VITE_APP_ALLOWED_HOST], // env 변수를 따옴표 없이 사용
+      host: '0.0.0.0',
+      allowedHosts: allowedHosts, // 정의된 배열 변수를 사용합니다.
       hmr: {
-        host: env.VITE_APP_ALLOWED_HOST, // env 변수를 따옴표 없이 사용
-        clientPort: 443, // Nginx가 443 포트로 프록시하므로, 클라이언트 포트를 443으로 명시
+        // HMR은 보통 하나의 호스트로만 연결되므로, 대표 도메인을 선택합니다.
+        // 여기서는 www.mev.r-e.kr을 예시로 둡니다.
+        host: env.VITE_APP_ALLOWED_HOST_WWW, // www 붙은 도메인으로 HMR 설정
+        clientPort: 443,
       },
     }
-  } // return 문을 여기서 닫습니다.
-})
+  };
+});
