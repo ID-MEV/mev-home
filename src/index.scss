@@ -363,7 +363,7 @@ $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?
     position: absolute;
     transform: translate(-50%, 40px);
     transition: opacity 250ms, transform 250ms;
-    z-index: 2;
+    z-index: 10;
     
     // #sign-in-button {
     //   &:not(:hover) {
