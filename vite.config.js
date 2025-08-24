@@ -13,10 +13,8 @@ export default defineConfig(({ mode }) => {
       host: '0.0.0.0',
       allowedHosts: allowedHosts, // 정의된 배열 변수를 사용합니다.
       hmr: {
-        // HMR은 보통 하나의 호스트로만 연결되므로, 대표 도메인을 선택합니다.
-        // 여기서는 www.mev.r-e.kr을 예시로 둡니다.
-        host: env.VITE_APP_ALLOWED_HOST_WWW, // www 붙은 도메인으로 HMR 설정
-        clientPort: 443,
+        host: 'mev.o-r.kr',
+        port: 5173,
       },
     }
   };

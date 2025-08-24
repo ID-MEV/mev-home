@@ -1,0 +1,23 @@
+/* src/components/Dashboard/TabContents/HomeTab.css */
+
+.home-tab-content .quick-links {
+  list-style: none;
+  padding: 0;
+}
+
+.home-tab-content .quick-links li {
+  margin-bottom: 12px;
+}
+
+.home-tab-content .quick-links a {
+  color: #ffffff; /* 링크 색상을 흰색으로 지정 */
+  font-weight: bold; /* 글자를 굵게 */
+  text-decoration: none; /* 밑줄 제거 */
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+.home-tab-content .quick-links a:hover {
+  color: #dddddd; /* 마우스를 올렸을 때 약간 어두운 흰색으로 변경 */
+  text-decoration: underline;
+}
