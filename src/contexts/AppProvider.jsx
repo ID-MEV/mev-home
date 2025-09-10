@@ -5,7 +5,7 @@ import { UserStatus } from '../utils/types';
 const AppProvider = ({ children }) => {
   const [userStatus, setUserStatus] = useState(UserStatus.LoggedOut);
   const [region, setRegion] = useState('');
-  const [selectedBackground, setSelectedBackground] = useState('/backgrounds/main1.jpeg'); // 기본값
+  const [selectedBackground, setSelectedBackground] = useState(null); // 기본값: null로 초기화하여 로딩 전까지 배경을 표시하지 않음
 
   // 앱 시작 시 서버에서 현재 배경화면 설정을 가져옵니다.
   useEffect(() => {
