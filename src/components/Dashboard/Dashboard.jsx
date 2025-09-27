@@ -24,21 +24,22 @@ const Dashboard = () => {
   // 키보드 이벤트 핸들러를 추가하는 useEffect 훅
   useEffect(() => {
     const handleKeyDown = (event) => {
-      switch (event.key) {
-        case '1':
+      switch (event.code) {
+        case 'Digit1':
           setActiveTab('home'); // '1' 키를 누르면 홈 탭으로 이동
           break;
-        case '2':
+        case 'Digit2':
           setActiveTab('search'); // '2' 키를 누르면 검색 탭으로 이동
           break;
-        case '3':
+        case 'Digit3':
           setActiveTab('notes'); // '3' 키를 누르면 메모 탭으로 이동
           break;
-        case '4':
+        case 'Digit4':
           setActiveTab('settings'); // '4' 키를 누르면 설정 탭으로 이동
           break;
-        case 'q':
-          handleLogout(); // 'q' 키를 누르면 로그아웃
+        case 'KeyQ':
+          setUserStatusTo(UserStatus.LoggedOut); // 'q' 키를 누르면 로그아웃
+          event.preventDefault(); // 기본 동작 방지
           break;
         default:
           // 다른 키 입력은 무시
@@ -53,7 +54,7 @@ const Dashboard = () => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleLogout]); // handleLogout 함수가 변경될 때마다 이펙트를 다시 실행
+  }, [setUserStatusTo]); // setUserStatusTo가 변경될 때만 이펙트를 다시 실행
 
   return (
     <div id="app-menu">

@@ -1,5 +1,6 @@
 // HomeTab.jsx
 import React from 'react';
+import ImportantMemos from './ImportantMemos'; // ImportantMemos 컴포넌트 임포트
 import './HomeTab.css'; // Import the new CSS file
 
 const HomeTab = () => {
@@ -9,6 +10,7 @@ const HomeTab = () => {
       <ul className="quick-links">
         <li><a href="https://cloud.mev.o-r.kr/index.php/s/4Fng9CDD8AS5MHE" target="_blank" rel="noopener noreferrer">클라우드 링크</a></li>
       </ul>
+      <ImportantMemos /> {/* ImportantMemos 컴포넌트 배치 */}
     </div>
   );
 };

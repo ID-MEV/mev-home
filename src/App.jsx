@@ -32,7 +32,7 @@ const App = () => {
 
   // --- 새로 추가된 부분 시작 ---
   React.useEffect(() => {
-    const handleInitialKeyPress = (event) => {
+    const handleKeyPress = (event) => {
       // 현재 상태가 'LoggedOut'일 때만 키보드 이벤트에 반응
       if (userStatus === UserStatus.LoggedOut) {
         // '1' 키가 눌렸을 때 UserStatus를 'LoggingIn'으로 변경
@@ -44,11 +44,11 @@ const App = () => {
     };
 
     // 문서 전체에 키다운 이벤트 리스너 추가
-    document.addEventListener('keydown', handleInitialKeyPress);
+    document.addEventListener('keydown', handleKeyPress);
 
     // 컴포넌트 언마운트 시 이벤트 리스너 제거
     return () => {
-      document.removeEventListener('keydown', handleInitialKeyPress);
+      document.removeEventListener('keydown', handleKeyPress);
     };
   }, [userStatus, setUserStatusTo]); // userStatus와 setUserStatusTo가 변경될 때만 리스너 재등록
   // --- 새로 추가된 부분 끝 ---
@@ -69,7 +69,11 @@ const App = () => {
       {/* Pin 컴포넌트는 LoggingIn 또는 LogInError 상태일 때만 렌더링되도록 조건부 추가 */}
       {(userStatus === UserStatus.LoggingIn || userStatus === UserStatus.LogInError) && <Pin />}
       {userStatus === UserStatus.VerifyingLogin && <Loading />}
-      {userStatus === UserStatus.LoggedIn && <Dashboard />}
+      {userStatus === UserStatus.LoggedIn && (
+        <div className="app-main-content">
+          <Dashboard />
+        </div>
+      )}
     </div>
   );
 };

@@ -5,7 +5,7 @@
         "id": 1,
         "title": "UI/UX: 전역 텍스트 가독성 개선",
         "description": "PRD의 비기능적 요구사항에 따라 애플리케이션 전반의 반투명 흰색 텍스트를 불투명한 흰색(`#FFFFFF`)으로 변경하여 가독성을 높입니다.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "details": "Conduct a global search for `rgba(255, 255, 255, 0.7)` or similar semi-transparent white color values applied to text elements. Replace these with `#FFFFFF` or `rgb(255, 255, 255)`. This change should be applied to all tabs and components to ensure consistency.",
@@ -17,7 +17,7 @@
             "description": "Perform a global search across all stylesheets (CSS, SCSS, styled-components, etc.) to identify and list every instance where semi-transparent white colors like `rgba(255, 255, 255, 0.7)` are applied to text elements.",
             "dependencies": [],
             "details": "Use project-wide search tools to find all relevant color declarations. Create a checklist of all files and line numbers that require modification to ensure complete coverage.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "N/A"
           },
           {
@@ -26,7 +26,7 @@
             "description": "To promote maintainability, define a new global CSS variable (e.g., `--color-text-light: #FFFFFF;`) in the main stylesheet to serve as the single source of truth for opaque white text.",
             "dependencies": [],
             "details": "Add the new variable to the `:root` selector in the primary global stylesheet. This will make future theme or color adjustments more efficient.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify the CSS variable is correctly defined and accessible globally using browser developer tools."
           },
           {
@@ -35,7 +35,7 @@
             "description": "Begin the replacement process by updating shared UI components such as the main navigation, headers, footers, and buttons to use the new global color variable instead of hardcoded semi-transparent values.",
             "dependencies": [],
             "details": "Focus on updating the styles for components that appear on multiple pages to establish a consistent baseline across the application.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Visually inspect a shared component (e.g., the main header) to confirm its text is now opaque white."
           },
           {
@@ -44,7 +44,7 @@
             "description": "Systematically work through the remaining items from the audit checklist, applying the opaque white color variable to all text elements within the specific components of each tab (Home, Memo, Search, Settings).",
             "dependencies": [],
             "details": "Ensure that unique elements on each tab, such as memo list items or settings labels, are updated to maintain visual consistency with the rest of the application.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Navigate to each tab and spot-check at least one unique text element to ensure it has been updated."
           },
           {
@@ -53,7 +53,7 @@
             "description": "Conduct a final, thorough visual review of the entire application on target browsers to confirm that all text is rendered as opaque white and that no visual regressions have been introduced.",
             "dependencies": [],
             "details": "Follow the original task's test strategy by inspecting all text elements across the Home, Memo, Search, and Settings tabs.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test the application in both Chrome and Firefox. Use developer tools to inspect text elements and confirm their computed CSS color is `#FFFFFF` or `rgb(255, 255, 255)`."
           }
         ]
@@ -62,7 +62,7 @@
         "id": 2,
         "title": "UI/UX: 고정 너비 레이아웃 구현",
         "description": "데스크톱 브라우저에서도 일관된 모바일과 유사한 뷰를 유지하도록 메인 애플리케이션 컨테이너에 고정 너비, 중앙 정렬 레이아웃을 적용합니다.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "details": "Wrap the main application content in a container div. Apply CSS rules to this container, such as `max-width: 500px;` (or another appropriate value), `margin: 0 auto;`, and `width: 100%;` to ensure it is centered and responsive on smaller screens while being constrained on larger ones.",
@@ -74,7 +74,7 @@
             "description": "레이아웃을 적용할 최상위 애플리케이션 컴포넌트 또는 HTML 요소를 코드베이스에서 찾아 분석합니다. 이 컴포넌트는 모든 페이지 콘텐츠를 포함해야 합니다.",
             "dependencies": [],
             "details": "애플리케이션의 모든 탭(홈, 메모, 검색, 설정)을 공통으로 감싸는 상위 컴포넌트를 찾습니다. 일반적으로 React의 `App.js` 또는 유사한 애플리케이션 진입점 파일이 해당됩니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "코드 구조를 검토하여 모든 라우팅된 뷰가 렌더링되는 단일 지점을 확인합니다."
           },
           {
@@ -85,7 +85,7 @@
               "2.1"
             ],
             "details": "1번 서브태스크에서 식별한 컴포넌트의 렌더링 로직을 수정하여, 모든 자식 요소가 새로운 `<div className=\"app-container\">`와 같은 컨테이너 내부에 위치하도록 HTML/JSX 구조를 변경합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "애플리케이션을 실행하고 브라우저 개발자 도구를 사용하여 새로운 컨테이너 `div`가 DOM에 올바르게 추가되었는지 확인합니다."
           },
           {
@@ -96,7 +96,7 @@
               "2.2"
             ],
             "details": "전역 CSS 파일(예: `index.css` 또는 `App.css`)에 `.app-container` 선택자를 추가하고 `max-width: 500px;`, `margin: 0 auto;`, `width: 100%;` 속성을 설정합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "개발자 도구의 'Elements' 탭을 사용하여 `.app-container` 요소에 CSS 규칙이 올바르게 적용되었는지 확인합니다."
           },
           {
@@ -107,7 +107,7 @@
               "2.3"
             ],
             "details": "브라우저 창을 500px보다 훨씬 넓게 만듭니다. 콘텐츠 영역이 최대 너비를 초과하지 않고 화면 중앙에 위치하며, 양쪽에 여백이 균등하게 표시되는지 시각적으로 확인합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "모든 탭(홈, 메모, 검색, 설정)을 탐색하며 레이아웃이 깨지거나 의도치 않은 시각적 문제가 없는지 검사합니다."
           },
           {
@@ -118,7 +118,7 @@
               "2.3"
             ],
             "details": "브라우저 창의 너비를 500px 이하로 줄입니다. `width: 100%` 규칙에 따라 콘텐츠가 뷰포트 너비에 맞춰지고 불필요한 가로 스크롤바가 생기지 않는지 확인합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Chrome 개발자 도구의 'Device Toolbar'를 사용하여 다양한 모바일 기기 프리셋(예: iPhone, Pixel)에서 렌더링을 확인하여 일관성을 보장합니다."
           }
         ]
@@ -127,7 +127,7 @@
         "id": 3,
         "title": "메모: '중요' 플래그를 위한 데이터 모델 업데이트",
         "description": "메모 항목의 데이터 구조를 수정하여 불리언(boolean) 타입의 `isImportant` 플래그를 포함시킵니다. 이 플래그는 어떤 메모를 홈 화면에 표시할지 추적하는 데 사용됩니다.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "high",
         "details": "Locate the memo object definition in the application's state management (e.g., `useState`, Redux, Zustand). Add a new key `isImportant` with a default value of `false`. If data is persisted in `localStorage`, write a migration script or logic to add this new field to existing memos upon application load.",
@@ -138,7 +138,7 @@
         "id": 4,
         "title": "메모 탭: '중요' 토글 UI 추가",
         "description": "'메모' 탭의 각 메모 항목에 사용자가 메모를 중요 항목으로 표시할 수 있도록 UI 요소(예: 별 아이콘, 체크박스 또는 토글 스위치)를 구현합니다.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           3
         ],
@@ -151,7 +151,7 @@
         "id": 5,
         "title": "메모 탭: '중요' 토글 로직 구현",
         "description": "'중요' 토글에 대한 사용자 상호작용을 처리하고, 메모 상태를 업데이트하며, 변경 사항을 영구 저장하는 로직을 작성합니다.",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           4
         ],
@@ -165,7 +165,7 @@
             "description": "메모의 '중요' 상태를 토글하는 로직을 담을 `toggleMemoImportance(memoId)`라는 이름의 이벤트 핸들러 함수를 애플리케이션의 상태 관리 영역(예: 상위 컴포넌트 또는 상태 저장소)에 생성합니다.",
             "dependencies": [],
             "details": "이 함수는 단일 인자 `memoId`를 받아야 합니다. 초기에는 함수의 본문을 비워두거나 콘솔 로그를 추가하여 호출을 확인할 수 있습니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "함수를 수동으로 호출하고 `memoId`가 올바르게 전달되는지 콘솔 로그를 통해 확인합니다."
           },
           {
@@ -176,7 +176,7 @@
               "5.1"
             ],
             "details": "배열의 `find()` 또는 `findIndex()` 메서드를 사용하여 대상 메모를 효율적으로 찾습니다. 메모를 찾지 못할 경우를 대비하여 오류 처리 또는 조기 반환(early return) 로직을 추가하는 것을 고려합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "알려진 ID로 함수를 호출하고 올바른 메모 객체가 반환되는지, 존재하지 않는 ID의 경우 `undefined`가 처리되는지 확인하는 단위 테스트를 작성합니다."
           },
           {
@@ -187,7 +187,7 @@
               "5.2"
             ],
             "details": "불변성을 유지하기 위해 기존 상태 배열을 직접 수정하는 대신, `map()`과 같은 메서드를 사용하여 새 배열을 생성합니다. `setState` 또는 동등한 상태 업데이트 함수를 호출하여 UI를 리렌더링합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "상태 업데이트 함수가 호출된 후, 해당 메모의 `isImportant` 속성이 실제로 반전되었는지 확인하는 단위 테스트를 작성합니다."
           },
           {
@@ -198,7 +198,7 @@
               "5.3"
             ],
             "details": "`JSON.stringify()`를 사용하여 메모 배열을 문자열로 변환한 후 `localStorage.setItem('memos', ...)`를 호출하여 저장합니다. 이 로직은 상태 업데이트 로직 바로 뒤에 위치해야 합니다.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "토글 기능을 실행한 후, 브라우저 개발자 도구의 Application 탭에서 `localStorage`의 'memos' 키 값이 업데이트된 데이터로 올바르게 변경되었는지 확인합니다."
           },
           {
@@ -209,7 +209,7 @@
               "5.1"
             ],
             "details": "함수를 props로 메모 컴포넌트에 전달해야 합니다. 이벤트 리스너 내에서 해당 메모의 고유 ID를 인자로 전달하여 함수를 호출하도록 설정합니다. 예: `onClick={() => toggleMemoImportance(memo.id)}`.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "애플리케이션을 실행하고 메모의 '중요' 토글을 클릭합니다. UI가 시각적으로 업데이트되고, 페이지를 새로고침해도 상태가 유지되는지 확인하여 전체 흐름을 테스트합니다."
           }
         ]
@@ -425,7 +425,7 @@
     ],
     "metadata": {
       "created": "2025-09-02T12:12:01.835Z",
-      "updated": "2025-09-02T12:12:01.835Z",
+      "updated": "2025-09-05T14:44:04.275Z",
       "description": "Tasks for master context"
     }
   }

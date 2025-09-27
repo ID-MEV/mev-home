@@ -9,7 +9,12 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
     try {
       const res = await fetch('https://api.mev.o-r.kr/api/memo');
       const data = await res.json();
-      setMemos(data);
+      // 기존 메모에 isImportant 필드가 없을 경우 false로 초기화
+      const updatedMemos = data.map(memo => ({
+        ...memo,
+        isImportant: memo.isImportant !== undefined ? memo.isImportant : false,
+      }));
+      setMemos(updatedMemos);
     } catch (error) {
       console.error('메모를 불러오는 중 오류 발생:', error);
     }
@@ -30,7 +35,7 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
       });
 
       const newItem = await res.json();
-      setMemos((prev) => [...prev, newItem]);
+      setMemos((prev) => [...prev, { ...newItem, isImportant: false }]);
       setNewMemo('');
     } catch (error) {
       console.error('메모 추가 중 오류 발생:', error);
@@ -47,6 +52,26 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
     } catch (error) {
       console.error('메모 삭제 중 오류 발생:', error);
     }
+  };
+
+  const toggleMemoImportance = (memoId) => {
+    setMemos((prevMemos) => {
+      const updatedMemos = prevMemos.map((memo) =>
+        memo.id === memoId ? { ...memo, isImportant: !memo.isImportant } : memo
+      );
+      // 5.4 서브태스크: 업데이트된 상태를 localStorage에 저장 (여기서 API 호출로 변경)
+      // 서버에 중요도 변경 요청
+      const targetMemo = updatedMemos.find(memo => memo.id === memoId);
+      if (targetMemo) {
+        fetch(`https://api.mev.o-r.kr/api/memo/${memoId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ isImportant: targetMemo.isImportant }),
+        })
+        .catch(error => console.error('메모 중요도 업데이트 실패:', error));
+      }
+      return updatedMemos;
+    });
   };
 
   const handleKeyPress = (e) => {
@@ -82,6 +107,11 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
       <ul className="memo-list">
         {memos.map((memo) => (
           <li key={memo.id} className="memo-item">
+            <i
+              className={`star-icon ${memo.isImportant ? 'fa-solid' : 'fa-regular'} fa-star`}
+              onClick={() => toggleMemoImportance(memo.id)}
+              title="중요 표시 토글"
+            ></i>
             <span
               onClick={() => copyToClipboard(memo.content)}
               title="클릭하여 복사"

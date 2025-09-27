@@ -1,0 +1,55 @@
+/* ImportantMemos.css */
+.important-memos-container {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #FFFFFF; /* 전역 텍스트 가독성 개선에 따라 불투명 흰색 적용 */
+}
+
+.important-memos-container h2 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #FFFFFF;
+}
+
+.important-memos-container p {
+  font-style: italic;
+  color: #CCCCCC;
+}
+
+.important-memo-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 5px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-left: 3px solid #4CAF50; /* 강조를 위한 색상 */
+}
+
+.important-memo-item h3 {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  color: #FFFFFF;
+}
+
+.important-memo-item p {
+  font-size: 0.9em;
+  color: #E0E0E0;
+  max-height: 40px; /* 내용 일부만 표시 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* 한 줄로 표시하고 넘치면 ... */
+}
+
+.empty-state-message {
+  text-align: center;
+  padding: 30px 0;
+  color: #AAAAAA;
+  font-size: 1.1em;
+}
+
+.empty-state-message p:last-child {
+  font-size: 0.9em;
+  margin-top: 10px;
+  color: #888888;
+}
