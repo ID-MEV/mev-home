@@ -34,6 +34,11 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
         body: JSON.stringify({ content: newMemo }),
       });
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || '메모 추가 실패');
+      }
+
       const newItem = await res.json();
       setMemos((prev) => [...prev, { ...newItem, isImportant: false }]);
       setNewMemo('');
@@ -99,6 +104,7 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
           value={newMemo}
           onChange={(e) => setNewMemo(e.target.value)}
           onKeyPress={handleKeyPress}
+          onKeyDown={(e) => e.stopPropagation()} // Add this line
           placeholder="메모를 입력하세요"
         />
         <button onClick={addMemo}>추가</button>
