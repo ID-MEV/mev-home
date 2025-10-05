@@ -8,16 +8,23 @@ const ImportantMemos = () => {
   useEffect(() => {
     // 실제 데이터 로딩 로직 (예: localStorage, API 호출)이 여기에 들어갑니다.
     // 현재는 목 데이터를 사용합니다.
-    const fetchImportantMemos = () => {
+    const fetchImportantMemos = async () => {
       setLoading(true);
-      setTimeout(() => {
-        const mockMemos = [
-          { id: 1, title: '중요 메모 1', content: '이것은 첫 번째 중요 메모입니다.' },
-          { id: 2, title: '중요 메모 2', content: '두 번째 중요 메모 내용입니다.' },
-        ];
-        setMemos(mockMemos);
+      try {
+        const res = await fetch('https://api.mev.o-r.kr/api/memo');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        // isImportant가 true인 메모만 필터링
+        const importantMemos = data.filter(memo => memo.isImportant === 1 || memo.isImportant === true);
+        setMemos(importantMemos);
+      } catch (error) {
+        console.error('중요 메모를 불러오는 중 오류 발생:', error);
+        setMemos([]); // 오류 발생 시 메모를 비웁니다.
+      } finally {
         setLoading(false);
-      }, 1000);
+      }
     };
 
     fetchImportantMemos();
