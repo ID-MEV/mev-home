@@ -85,6 +85,7 @@ const SearchTab = () => {
                             id="username"
                             value={loginUsername}
                             onChange={(e) => setLoginUsername(e.target.value)}
+                            onKeyDown={(e) => e.stopPropagation()} // 키다운 이벤트 전파 중지
                             required // 필수 입력 필드
                         />
                     </div>
@@ -95,6 +96,7 @@ const SearchTab = () => {
                             id="password"
                             value={loginPassword}
                             onChange={(e) => setLoginPassword(e.target.value)}
+                            onKeyDown={(e) => e.stopPropagation()} // 키다운 이벤트 전파 중지
                             required // 필수 입력 필드
                         />
                     </div>
@@ -121,6 +123,7 @@ const SearchTab = () => {
                     type="text"
                     value={input}
                     onChange={(e) => handleSearch(e.target.value)}
+                    onKeyDown={(e) => e.stopPropagation()} // 키다운 이벤트 전파 중지
                     placeholder="검색어를 입력하세요"
                 />
             </div>
