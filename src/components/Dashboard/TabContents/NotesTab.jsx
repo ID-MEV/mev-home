@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './NotesTab.css';
 
-const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을 가져옵니다.
+const NotesTab = () => {
   const [memos, setMemos] = useState([]);
   const [newMemo, setNewMemo] = useState('');
+  const memoInputRef = useRef(null); // ✨ useRef 훅 추가
 
   const fetchMemos = async () => {
     try {
@@ -22,6 +23,10 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
 
   useEffect(() => {
     fetchMemos();
+    // ✨ 컴포넌트 마운트 시 메모 입력 필드에 포커스 설정
+    if (memoInputRef.current) {
+      memoInputRef.current.focus();
+    }
   }, []);
 
   const addMemo = async () => {
@@ -100,11 +105,26 @@ const NotesTab = () => { // ✨ NotesTab 컴포넌트 안으로 모든 로직을
       <h1>제목으로 메모 추가하기</h1>
       <div className="memo-input-group">
         <input
+          ref={memoInputRef} // ✨ ref 연결
           type="text"
           value={newMemo}
           onChange={(e) => setNewMemo(e.target.value)}
           onKeyPress={handleKeyPress}
-          onKeyDown={(e) => e.stopPropagation()} // Add this line
+          onKeyDown={(e) => {
+            console.log('Key Down:', e.key, 'Code:', e.code, 'Ctrl:', e.ctrlKey); // 디버깅을 위한 console.log 추가
+            // Ctrl + Q (물리적 'q' 키) 감지
+            if (e.ctrlKey && e.code === 'KeyQ') {
+              e.preventDefault();
+              e.stopPropagation();
+              // 포커스 제거를 약간 지연시켜 IME와의 충돌 방지
+              setTimeout(() => {
+                e.target.blur();
+                document.body.focus();
+              }, 0); // 0ms 지연으로 이벤트 루프의 다음 틱에서 실행
+            } else {
+              e.stopPropagation();
+            }
+          }}
           placeholder="메모를 입력하세요"
         />
         <button onClick={addMemo}>추가</button>

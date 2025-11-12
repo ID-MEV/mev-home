@@ -33,6 +33,7 @@ const Dashboard = () => {
           break;
         case 'Digit3':
           setActiveTab('notes'); // '3' 키를 누르면 메모 탭으로 이동
+          event.preventDefault(); // ✨ 기본 동작 방지 추가
           break;
         case 'Digit4':
           setActiveTab('settings'); // '4' 키를 누르면 설정 탭으로 이동
