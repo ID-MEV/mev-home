@@ -101,7 +101,7 @@ const SearchTab = () => {
                         />
                     </div>
                     {loginError && <p className="error-message">{loginError}</p>} {/* 에러 메시지 표시 */}
-                    <button type="submit">로그인</button> {/* 폼 제출 버튼 */}
+                    <button type="submit" className="login-submit-button">로그인</button> {/* 폼 제출 버튼 */}
                 </form>
             </div>
         );

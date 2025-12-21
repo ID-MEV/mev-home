@@ -42,7 +42,7 @@
   /* 2. 톤 다운된 남색 계열 (차분하고 전문적) */
   // background: linear-gradient(to bottom, #2E3A59, #232B40);
   /* 3. 아주 짙은 청록색 계열 (깊이 있고 시원한 느낌) */
-   background: linear-gradient(to bottom, #1E4040, #173333);
+   background: linear-gradient(to bottom, var(--primary-color), #173333);
   /* 4. 기존 보라색에서 톤을 깊게 */
   // background: linear-gradient(to bottom, #300080, #200060);
 
@@ -96,7 +96,7 @@
   
         /* ✨✨✨ 활성화 표시 막대 색상 옵션 (선택하여 주석 해제 후 사용) ✨✨✨ */
         /* 사이드바 배경 색상과 어울리는 강조 색상 선택 */
-        background-color: #1E4040; /*  */
+        background-color: var(--primary-color); /*  */
         // background-color: #77EEAA; /* 밝은 민트 */
         // background-color: #FFD700; /* 황금색 */
         // background-color: #F06292; /* 분홍색 */
@@ -245,44 +245,58 @@
 }
 
 .settings-container ul {
-    list-style: none; /* 목록 마커 제거 */
+    list-style: none;
     padding: 0;
-    text-align: left;
     width: 100%;
-    max-width: 400px; /* 너무 넓게 퍼지지 않도록 최대 너비 설정 */
+    max-width: 900px; /* 3개 항목이 들어갈 수 있도록 최대 너비 확장 */
+}
+
+.settings-list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 한 줄에 3개의 동일한 너비의 컬럼
+    gap: 15px; // 항목들 사이의 간격
+
+    li {
+        box-sizing: border-box;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    }
 }
 
 .settings-container li {
-    background: rgba(255, 255, 255, 0.1); /* 투명한 배경색 */
-    margin-bottom: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    // margin-bottom: 10px; // gap으로 대체될 예정이므로 주석 처리 또는 제거
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  #app-menu {
-    width: calc(100% - 20px);
-    height: calc(100% - 60px);
-    margin: 30px 10px;
-    border-radius: 10px;
-  }
 
-  .dashboard-sidebar {
-    width: 60px;
-  }
+.setting-detail-view {
+  padding-top: 20px;
+  text-align: left;
 
-  .dashboard-main-content {
-    padding: 15px;
-  }
+  .back-button {
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 
-  .profile-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    &:hover {
+      text-decoration: underline;
+    }
 
-  .profile-info h2 {
-    font-size: 2em;
+    i {
+      margin-right: 8px;
+    }
   }
 }

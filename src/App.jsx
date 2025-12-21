@@ -11,7 +11,12 @@ import classNames from 'classnames';
 import Dashboard from './components/Dashboard/Dashboard';
 
 const App = () => {
-  const { userStatus, setUserStatusTo } = useContext(AppContext);
+  const { userStatus, setUserStatusTo, selectedThemeColor } = useContext(AppContext);
+
+  // selectedThemeColor가 변경될 때마다 --primary-color CSS 변수를 업데이트합니다.
+  useEffect(() => {
+    document.documentElement.style.setProperty('--primary-color', selectedThemeColor);
+  }, [selectedThemeColor]);
 
   const getStatusClass = useCallback(() => {
     switch (userStatus) {

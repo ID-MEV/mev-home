@@ -45,9 +45,9 @@
     color: #333;
 }
 
-.login-container button[type="submit"] {
+.login-container .login-submit-button {
     padding: 10px 20px;
-    background-color: #007bff; /* 파란색 버튼 */
+    background-color: var(--primary-color); /* 테마 색상 적용 */
     color: white;
     border: none;
     border-radius: 4px;
@@ -57,8 +57,9 @@
     margin-top: 10px;
 }
 
-.login-container button[type="submit"]:hover {
-    background-color: #0056b3;
+.login-container .login-submit-button:hover {
+    background-color: var(--primary-color, #007bff); /* 호버 시에도 테마 색상 유지 또는 기본값 */
+    filter: brightness(1.2); /* 호버 시 밝게 */
 }
 
 .error-message {
