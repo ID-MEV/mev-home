@@ -71,7 +71,7 @@ const App = () => {
         </div>
       )}
       <Info id="app-info"/>
-      {/* Pin 컴포넌트는 LoggingIn 또는 LogInError 상태일 때만 렌더링되도록 조건부 추가 */}
+      {/* Pin 컴포넌트는 LoggingIn 또는 LogInError 상태일 때만 렌더링되도록 조건부 추가 (임시 비활성화) */}
       {(userStatus === UserStatus.LoggingIn || userStatus === UserStatus.LogInError) && <Pin />}
       {userStatus === UserStatus.VerifyingLogin && <Loading />}
       {userStatus === UserStatus.LoggedIn && (

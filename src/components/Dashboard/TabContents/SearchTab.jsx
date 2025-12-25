@@ -1,10 +1,12 @@
 // src/components/TabContents/SearchTab.jsx (로그인 기능 통합)
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { AppContext } from '../../../contexts/AppContext'; // AppContext 임포트
+import { UserStatus } from '../../../utils/types'; // UserStatus 임포트
 import './SearchTab.css'; // SearchPage의 CSS를 그대로 사용합니다.
 
 const SearchTab = () => {
+    const { userStatus, setUserStatusTo } = useContext(AppContext); // AppContext에서 userStatus와 setUserStatusTo 가져오기
     // ✨ 로그인 기능 관련 상태 추가
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 여부
     const [loginUsername, setLoginUsername] = useState(''); // 입력할 ID
     const [loginPassword, setLoginPassword] = useState(''); // 입력할 PW
     const [loginError, setLoginError] = useState(''); // 로그인 에러 메시지
@@ -39,7 +41,7 @@ const SearchTab = () => {
             console.log('로그인 성공:', data.token); // 개발자 도구 콘솔에서 토큰 확인 가능
 
             // 로그인 성공 상태로 전환
-            setIsLoggedIn(true); 
+            setUserStatusTo(UserStatus.LoggedIn); 
             // 입력 필드 초기화
             setLoginUsername(''); 
             setLoginPassword(''); 
@@ -72,7 +74,7 @@ const SearchTab = () => {
     };
 
     // --- 조건부 렌더링: 로그인 상태에 따라 다른 화면 표시 ---
-    if (!isLoggedIn) {
+    if (userStatus !== UserStatus.LoggedIn) {
         // 로그인되지 않았다면 로그인 폼을 보여줍니다.
         return (
             <div className="login-container fade-in">
