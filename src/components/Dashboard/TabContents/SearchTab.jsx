@@ -10,6 +10,7 @@ const SearchTab = () => {
     const [loginUsername, setLoginUsername] = useState(''); // 입력할 ID
     const [loginPassword, setLoginPassword] = useState(''); // 입력할 PW
     const [loginError, setLoginError] = useState(''); // 로그인 에러 메시지
+    const [isSearchTabLoggedIn, setIsSearchTabLoggedIn] = useState(false); // SearchTab 전용 로그인 상태
 
     // 검색 기능 관련 상태 (로그인 후에 사용될 것)
     const [searchOption, setSearchOption] = useState('이름');
@@ -40,10 +41,10 @@ const SearchTab = () => {
             const data = await res.json();
             console.log('로그인 성공:', data.token); // 개발자 도구 콘솔에서 토큰 확인 가능
 
-            // 로그인 성공 상태로 전환
-            setUserStatusTo(UserStatus.LoggedIn); 
-            // 입력 필드 초기화
-            setLoginUsername(''); 
+                        // 로그인 성공 상태로 전환
+                        setUserStatusTo(UserStatus.LoggedIn);
+                        setIsSearchTabLoggedIn(true); // SearchTab 전용 로그인 상태를 true로 변경
+                        // 입력 필드 초기화            setLoginUsername(''); 
             setLoginPassword(''); 
 
             // 선택 사항: JWT 토큰을 localStorage에 저장하여 페이지 새로고침 시에도 로그인 유지 가능
@@ -74,7 +75,7 @@ const SearchTab = () => {
     };
 
     // --- 조건부 렌더링: 로그인 상태에 따라 다른 화면 표시 ---
-    if (userStatus !== UserStatus.LoggedIn) {
+    if (!isSearchTabLoggedIn) {
         // 로그인되지 않았다면 로그인 폼을 보여줍니다.
         return (
             <div className="login-container fade-in">
