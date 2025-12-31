@@ -82,7 +82,8 @@ const ThemeSettings = ({ selectedThemeColor, setSelectedThemeColor, onBack }) =>
         {colors.map(color => (
           <button
             key={color}
-            style={{ backgroundColor: color, border: color === selectedThemeColor ? '2px solid white' : 'none' }}
+            className={color === selectedThemeColor ? 'selected' : ''}
+            style={{ backgroundColor: color }}
             onClick={() => setSelectedThemeColor(color)}
           >
             {color === selectedThemeColor && <i className="fa-solid fa-check"></i>}

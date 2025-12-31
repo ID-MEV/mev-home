@@ -276,7 +276,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 .setting-detail-view {
   padding-top: 20px;
   text-align: left;
@@ -297,6 +296,38 @@
 
     i {
       margin-right: 8px;
+    }
+  }
+}
+
+.theme-color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+
+  button {
+    width: 40px;  // 고정 너비
+    height: 40px; // 고정 높이
+    border-radius: 50%; // 원형 버튼
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid transparent; // 기본 테두리
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.1); // 호버 시 약간 확대
+    }
+
+    &.selected { // 선택된 버튼에 대한 스타일 (JS에서 클래스 추가 예정)
+      border-color: white;
+    }
+
+    i {
+      color: white; // 체크 아이콘 색상
+      font-size: 1.2em;
     }
   }
 }
