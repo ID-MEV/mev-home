@@ -132,42 +132,44 @@ const SearchTab = () => {
             </div>
 
             {results.length > 0 ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>이름</th>
-                            <th>순</th>
-                            <th>직분</th>
-                            <th>성별</th>
-                            <th>배우자</th>
-                            <th>양음력</th>
-                            <th>생년월일</th>
-                            <th>자택번호</th>
-                            <th>휴대번호</th>
-                            <th>가족사항</th>
-                            <th>주소</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {results.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.ID}</td>
-                                <td>{item.이름}</td>
-                                <td>{item.순}</td>
-                                <td>{item.직분}</td>
-                                <td>{item.성별}</td>
-                                <td>{item.배우자}</td>
-                                <td>{item.양음력}</td>
-                                <td>{item.생년월일}</td>
-                                <td>{item.자택번호}</td>
-                                <td>{item.휴대번호}</td>
-                                <td>{item.가족사항}</td>
-                                <td>{item.주소}</td>
+                <div className="search-results-table-container">
+                    <table className="search-results-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>이름</th>
+                                <th>순</th>
+                                <th>직분</th>
+                                <th>성별</th>
+                                <th>배우자</th>
+                                <th>양음력</th>
+                                <th>생년월일</th>
+                                <th>자택번호</th>
+                                <th>휴대번호</th>
+                                <th>가족사항</th>
+                                <th>주소</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {results.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.ID}</td>
+                                    <td>{item.이름}</td>
+                                    <td>{item.순}</td>
+                                    <td>{item.직분}</td>
+                                    <td>{item.성별}</td>
+                                    <td>{item.배우자}</td>
+                                    <td>{item.양음력}</td>
+                                    <td>{item.생년월일}</td>
+                                    <td>{item.자택번호}</td>
+                                    <td>{item.휴대번호}</td>
+                                    <td>{item.가족사항}</td>
+                                    <td>{item.주소}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             ) : (
                 <p>{input ? '검색 결과가 없습니다.' : '검색어를 입력하세요.'}</p>
             )}
