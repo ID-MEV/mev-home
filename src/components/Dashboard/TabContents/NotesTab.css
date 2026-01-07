@@ -1,10 +1,16 @@
 /* 이건 MemoPage.css 파일이야. */
-.memo-container {
+  .memo-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
   }
   
+  .memo-title {
+    font-size: 2em; /* 제목 크기 설정 */
+    font-weight: bold; /* 볼드체 */
+    margin-bottom: 20px; /* 입력 필드와의 여백 */
+    color: white; /* 대시보드 테마와 통일감 있는 색상 */
+  }  
   .memo-input-group {
     display: flex;
     margin-bottom: 20px;
@@ -41,6 +47,7 @@
   
   .memo-item span {
     flex: 1;
+    word-break: break-all; /* 긴 텍스트가 영역을 넘어갈 때 강제로 줄바꿈 */
   }
   
   .memo-item button {

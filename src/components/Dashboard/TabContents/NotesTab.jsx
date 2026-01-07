@@ -102,7 +102,7 @@ const NotesTab = () => {
   return (
     // NotesTab의 최상위 div의 className을 memo-container로 변경하고 fade-in 추가
     <div className="memo-container fade-in">
-      <h1>제목으로 메모 추가하기</h1>
+      <h1 className="memo-title">Todo list</h1>
       <div className="memo-input-group">
         <input
           ref={memoInputRef} // ✨ ref 연결
