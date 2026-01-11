@@ -1,27 +1,37 @@
 /* 이건 MemoPage.css 파일이야. */
   .memo-container {
-    max-width: 600px;
+    /* max-width: 600px; */ /* 제거 */
     margin: 0 auto;
-    padding: 20px;
+    /* padding: 20px; */ /* padding 제거 */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
   
+  .memo-header {
+    padding: 20px; /* 헤더에 패딩 추가 */
+    position: sticky; /* 스크롤 시 상단에 고정 */
+    top: 0; /* 상단에 고정 */
+    z-index: 1; /* 다른 요소 위에 오도록 z-index 설정 */
+  }
+
   .memo-title {
-    font-size: 2em; /* 제목 크기 설정 */
-    font-weight: bold; /* 볼드체 */
-    margin-bottom: 20px; /* 입력 필드와의 여백 */
-    color: white; /* 대시보드 테마와 통일감 있는 색상 */
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
   }  
   .memo-input-group {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 0; /* 헤더에 패딩이 있으므로 여기서 마진 제거 */
   }
   
   .memo-input-group input {
     flex: 1;
     padding: 10px;
     font-size: 16px;
-    width: 100%; /* 너비를 100%로 설정 */
-    box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+    width: 100%;
+    box-sizing: border-box;
     color: black;
   }
   
@@ -31,6 +41,12 @@
     font-size: 16px;
   }
   
+  .memo-scrollable-content {
+    flex-grow: 1; /* 남은 공간을 모두 차지 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    padding: 0 20px 20px 20px; /* 스크롤 가능한 영역에 좌우 패딩 추가 */
+  }
+
   .memo-list {
     list-style: none;
     padding: 0;

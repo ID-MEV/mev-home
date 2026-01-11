@@ -102,52 +102,55 @@ const NotesTab = () => {
   return (
     // NotesTab의 최상위 div의 className을 memo-container로 변경하고 fade-in 추가
     <div className="memo-container fade-in">
-      <h1 className="memo-title">Todo list</h1>
-      <div className="memo-input-group">
-        <input
-          ref={memoInputRef} // ✨ ref 연결
-          type="text"
-          value={newMemo}
-          onChange={(e) => setNewMemo(e.target.value)}
-          onKeyPress={handleKeyPress}
-          onKeyDown={(e) => {
-            console.log('Key Down:', e.key, 'Code:', e.code, 'Ctrl:', e.ctrlKey); // 디버깅을 위한 console.log 추가
-            // Ctrl + Q (물리적 'q' 키) 감지
-            if (e.ctrlKey && e.code === 'KeyQ') {
-              e.preventDefault();
-              e.stopPropagation();
-              // 포커스 제거를 약간 지연시켜 IME와의 충돌 방지
-              setTimeout(() => {
-                e.target.blur();
-                document.body.focus();
-              }, 0); // 0ms 지연으로 이벤트 루프의 다음 틱에서 실행
-            } else {
-              e.stopPropagation();
-            }
-          }}
-          placeholder="메모를 입력하세요"
-        />
-        <button onClick={addMemo}>추가</button>
+      <div className="memo-header">
+        <h1 className="memo-title">Todo list</h1>
+        <div className="memo-input-group">
+          <input
+            ref={memoInputRef} // ✨ ref 연결
+            type="text"
+            value={newMemo}
+            onChange={(e) => setNewMemo(e.target.value)}
+            onKeyPress={handleKeyPress}
+            onKeyDown={(e) => {
+              console.log('Key Down:', e.key, 'Code:', e.code, 'Ctrl:', e.ctrlKey); // 디버깅을 위한 console.log 추가
+              // Ctrl + Q (물리적 'q' 키) 감지
+              if (e.ctrlKey && e.code === 'KeyQ') {
+                e.preventDefault();
+                e.stopPropagation();
+                // 포커스 제거를 약간 지연시켜 IME와의 충돌 방지
+                setTimeout(() => {
+                  e.target.blur();
+                  document.body.focus();
+                }, 0); // 0ms 지연으로 이벤트 루프의 다음 틱에서 실행
+              } else {
+                e.stopPropagation();
+              }
+            }}
+            placeholder="메모를 입력하세요"
+          />
+          <button onClick={addMemo}>추가</button>
+        </div>
       </div>
-
-      <ul className="memo-list">
-        {memos.map((memo) => (
-          <li key={memo.id} className="memo-item">
-            <i
-              className={`star-icon ${memo.isImportant ? 'fa-solid' : 'fa-regular'} fa-star`}
-              onClick={() => toggleMemoImportance(memo.id)}
-              title="중요 표시 토글"
-            ></i>
-            <span
-              onClick={() => copyToClipboard(memo.content)}
-              title="클릭하여 복사"
-            >
-              {memo.content}
-            </span>
-            <button onClick={() => deleteMemo(memo.id)}>삭제</button>
-          </li>
-        ))}
-      </ul>
+      <div className="memo-scrollable-content">
+        <ul className="memo-list">
+          {memos.map((memo) => (
+            <li key={memo.id} className="memo-item">
+              <i
+                className={`star-icon ${memo.isImportant ? 'fa-solid' : 'fa-regular'} fa-star`}
+                onClick={() => toggleMemoImportance(memo.id)}
+                title="중요 표시 토글"
+              ></i>
+              <span
+                onClick={() => copyToClipboard(memo.content)}
+                title="클릭하여 복사"
+              >
+                {memo.content}
+              </span>
+              <button onClick={() => deleteMemo(memo.id)}>삭제</button>
+            </li>
+          ))}
+        </ul>
+      </div>
       {/* ✨ CurrentTime 컴포넌트를 사용하지 않으려면 이 줄을 삭제합니다. */}
       {/* <CurrentTime /> */}
     </div>
