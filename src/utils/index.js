@@ -26,7 +26,8 @@ export const T = { // <-- ': ITimeUtility' 삭제
     return `<span class="math-inline">\{hours\}\:</span>{T.formatSegment(minutes)}`;
   },
   formatHours: (hours) => { // <-- ': number): string' 타입 선언 모두 삭제
-    return (hours % 12 === 0 ? 12 : hours % 12).toString();
+    const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
+    return formattedHours < 10 ? `0${formattedHours}` : formattedHours.toString();
   },
   formatSegment: (segment) => { // <-- ': number): string' 타입 선언 모두 삭제
     return segment < 10 ? `0${segment}` : segment.toString();

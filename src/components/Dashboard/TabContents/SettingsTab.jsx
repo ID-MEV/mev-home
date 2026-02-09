@@ -7,38 +7,91 @@ import { AppContext } from '../../../contexts/AppContext';
 
 
 const WeatherSettings = ({
-  region, setRegionTo,
-  inputRegion, setInputRegion,
-  isEditing, setIsEditing,
-  handleSave, handleCancel,
+  weatherLocation, setWeatherLocation, // AppContext에서 전달된 날씨 위치와 업데이트 함수
+  weatherUnit, setWeatherUnit,       // AppContext에서 전달된 날씨 단위와 업데이트 함수
+  inputWeatherLocation, setInputWeatherLocation, // SettingsTab 내부 상태 (날씨 위치)
+  inputWeatherUnit, setInputWeatherUnit,     // SettingsTab 내부 상태 (날씨 단위)
+  // isEditing, setIsEditing, // 이제 각 설정 항목에서 직접 편집 상태를 관리
+  // handleSave, handleCancel, // 이제 WeatherSettings 내부에서 직접 저장/취소 로직 처리
   cities,
   onBack // 뒤로 가기 버튼을 위한 prop 추가
 }) => {
+  const [isEditingLocation, setIsEditingLocation] = useState(false); // 날씨 위치 편집 상태
+  const [isEditingUnit, setIsEditingUnit] = useState(false);     // 날씨 단위 편집 상태
+
+  const handleSaveLocation = () => {
+    setWeatherLocation(inputWeatherLocation);
+    setIsEditingLocation(false);
+    alert('날씨 위치가 저장되었습니다.');
+  };
+
+  const handleCancelLocation = () => {
+    setInputWeatherLocation(weatherLocation);
+    setIsEditingLocation(false);
+  };
+
+  const handleSaveUnit = () => {
+    setWeatherUnit(inputWeatherUnit);
+    setIsEditingUnit(false);
+    alert('날씨 단위가 저장되었습니다.');
+  };
+
+  const handleCancelUnit = () => {
+    setInputWeatherUnit(weatherUnit);
+    setIsEditingUnit(false);
+  };
+
   return (
-    <div className="setting-detail-view fade-in"> {/* 새로운 클래스 추가 */}
+    <div className="setting-detail-view fade-in">
       <button onClick={onBack} className="back-button">
         <i className="fa-solid fa-arrow-left"></i> 뒤로
       </button>
       <h3>날씨 위치 설정</h3>
-      {isEditing ? (
-        <div>
-          <select
-            value={inputRegion}
-            onChange={(e) => setInputRegion(e.target.value)}
-          >
-            {cities.map(city => (
-              <option key={city} value={city}>{city}</option>
-            ))}
-          </select>
-          <button onClick={handleSave}>저장</button>
-          <button onClick={handleCancel}>취소</button>
-        </div>
-      ) : (
-        <div onClick={() => setIsEditing(true)} style={{ cursor: 'pointer' }}>
-          <span>{region || '지역을 설정해주세요'}</span>
-          <i className="fa-solid fa-pencil" style={{ marginLeft: '10px' }}></i>
-        </div>
-      )}
+      <div className="setting-item">
+        <label>현재 위치:</label>
+        {isEditingLocation ? (
+          <div>
+            <select
+              value={inputWeatherLocation}
+              onChange={(e) => setInputWeatherLocation(e.target.value)}
+            >
+              {cities.map(city => (
+                <option key={city} value={city}>{city}</option>
+              ))}
+            </select>
+            <button onClick={handleSaveLocation}>저장</button>
+            <button onClick={handleCancelLocation}>취소</button>
+          </div>
+        ) : (
+          <div onClick={() => setIsEditingLocation(true)} style={{ cursor: 'pointer' }}>
+            <span>{weatherLocation || '지역을 설정해주세요'}</span>
+            <i className="fa-solid fa-pencil" style={{ marginLeft: '10px' }}></i>
+          </div>
+        )}
+      </div>
+
+      <h3 style={{ marginTop: '20px' }}>날씨 단위 설정</h3>
+      <div className="setting-item">
+        <label>현재 단위:</label>
+        {isEditingUnit ? (
+          <div>
+            <select
+              value={inputWeatherUnit}
+              onChange={(e) => setInputWeatherUnit(e.target.value)}
+            >
+              <option value="celsius">섭씨 (°C)</option>
+              <option value="fahrenheit">화씨 (°F)</option>
+            </select>
+            <button onClick={handleSaveUnit}>저장</button>
+            <button onClick={handleCancelUnit}>취소</button>
+          </div>
+        ) : (
+          <div onClick={() => setIsEditingUnit(true)} style={{ cursor: 'pointer' }}>
+            <span>{weatherUnit === 'celsius' ? '섭씨 (°C)' : '화씨 (°F)'}</span>
+            <i className="fa-solid fa-pencil" style={{ marginLeft: '10px' }}></i>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -114,26 +167,21 @@ const SettingsTab = () => {
         return { name, path: publicPath };
     });
 
-    const { region, setRegionTo, setSelectedBackground, selectedThemeColor, setSelectedThemeColor } = useContext(AppContext);
-    const [inputRegion, setInputRegion] = useState(region || 'Seoul');
-    const [isEditing, setIsEditing] = useState(false);
+    const {
+        // region, setRegionTo, // 기존 region 관련, 더 이상 사용하지 않으므로 제거 예정
+        selectedBackground, setSelectedBackground,
+        selectedThemeColor, setSelectedThemeColor,
+        weatherLocation, setWeatherLocation, // AppContext에서 가져온 날씨 위치 및 업데이트 함수
+        weatherUnit, setWeatherUnit,       // AppContext에서 가져온 날씨 단위 및 업데이트 함수
+    } = useContext(AppContext);
+    const [inputWeatherLocation, setInputWeatherLocation] = useState(weatherLocation || 'Seoul'); // 날씨 위치용 내부 상태
+    const [inputWeatherUnit, setInputWeatherUnit] = useState(weatherUnit || 'celsius');     // 날씨 단위용 내부 상태
     // 새로 추가된 상태: 날씨 설정 상세 페이지 표시 여부
     const [showWeatherSettings, setShowWeatherSettings] = useState(false);
     // 새로 추가된 상태: 배경화면 설정 상세 페이지 표시 여부
     const [showBackgroundSettings, setShowBackgroundSettings] = useState(false);
     // 새로 추가된 상태: 테마 설정 상세 페이지 표시 여부
     const [showThemeSettings, setShowThemeSettings] = useState(false);
-
-    const handleSave = () => {
-        setRegionTo(inputRegion);
-        setIsEditing(false);
-        alert('지역이 저장되었습니다.');
-    };
-
-    const handleCancel = () => {
-        setInputRegion(region);
-        setIsEditing(false);
-    };
 
     const handleBackgroundChange = (path) => {
         // 컨텍스트의 함수를 호출하면 AppProvider가 서버에 저장합니다.
@@ -152,14 +200,14 @@ const SettingsTab = () => {
             {showWeatherSettings ? (
                 // 날씨 설정 상세 페이지
                 <WeatherSettings
-                  region={region}
-                  setRegionTo={setRegionTo}
-                  inputRegion={inputRegion}
-                  setInputRegion={setInputRegion}
-                  isEditing={isEditing}
-                  setIsEditing={setIsEditing}
-                  handleSave={handleSave}
-                  handleCancel={handleCancel}
+                  weatherLocation={weatherLocation}
+                  setWeatherLocation={setWeatherLocation}
+                  weatherUnit={weatherUnit}
+                  setWeatherUnit={setWeatherUnit}
+                  inputWeatherLocation={inputWeatherLocation}
+                  setInputWeatherLocation={setInputWeatherLocation}
+                  inputWeatherUnit={inputWeatherUnit}
+                  setInputWeatherUnit={setInputWeatherUnit}
                   cities={cities}
                   onBack={() => setShowWeatherSettings(false)} // 뒤로 가기
                 />
