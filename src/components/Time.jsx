@@ -8,22 +8,26 @@ const Time = () => { // <-- ': React.FC' 부분을 삭제합니다.
   const [showColon, setShowColon] = React.useState(true); // 콜론의 보임/숨김 상태
 
   React.useEffect(() => {
-    const halfSecond = 500; // 0.5초
+    let timeoutId; // For cleanup
 
     const interval = setInterval(() => {
-      // 콜론 상태를 먼저 토글
-      setShowColon(prev => {
-        const newShowColon = !prev;
-        // 콜론이 'true'가 되는 순간(나타날 때)에만 시간을 업데이트
-        if (newShowColon) {
-          const updatedDate = new Date(); // newDate 대신 updatedDate 변수 선언
-          setDateTo(updatedDate); // updatedDate를 setDateTo에 전달
-        }
-        return newShowColon;
-      });
-    }, halfSecond);
+      // 1. 매 초 정각에 시간 업데이트
+      setDateTo(new Date());
 
-    return () => clearInterval(interval);
+      // 2. 콜론 보이게 설정
+      setShowColon(true);
+
+      // 3. 0.5초 후에 콜론 숨기기
+      timeoutId = setTimeout(() => {
+        setShowColon(false);
+      }, 500);
+
+    }, 1000); // 1초마다 실행
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeoutId); // Clean up timeout as well
+    };
   }, []); // 의존성 배열 비워둠 (컴포넌트 마운트 시 한 번만 실행)
 
   return (
@@ -31,7 +35,7 @@ const Time = () => { // <-- ': React.FC' 부분을 삭제합니다.
       <div id="app-time-meridiem"> {/* PM/AM을 시간 앞으로 이동 */}
         {date.getHours() >= 12 ? "PM" : "AM"}
       </div>
-      <div id="app-time-time">
+      <div id="app-time-time" className="time-display" style={{ fontFeatureSettings: '"tnum"' }}>
         {T.formatHours(date.getHours())}<span className='time-colon' style={{ opacity: showColon ? 1 : 0 }}>:</span>{T.formatSegment(date.getMinutes())}
         <span className='time-seconds'>
           {T.formatSegment(date.getSeconds())}

@@ -1,0 +1,50 @@
+@media(max-width: 1300px) {
+  #app {
+    &.logged-out {
+      #sign-in-button-wrapper {
+        transform: translate(-40px, 0px);
+      }
+    }
+  
+    #sign-in-button-wrapper {
+      bottom: 40px;
+      left: auto;
+      right: 0px;
+      transform: translate(40px, 0px);
+    }
+  }
+}
+
+@media(max-width: 600px) {
+  #app-info {
+    #app-time {
+        color: var(--color-text-light);
+        font-size: 12vw;
+        font-weight: bold;
+        display: flex; // 시와 분/오전을 가로로 정렬
+        align-items: flex-end; // PM/AM과 높이 정렬
+        line-height: 1; // 줄 간격
+    }
+  }
+    #app {
+    .info {
+      .time {
+        font-size: 13vw;
+        height: 60px;
+        line-height: 60px;
+      }
+    }
+    
+    .user-status-button {
+      width: 60px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #app {
+    .app-main-content {
+      max-width: 1200px; // PC 화면에서 더 넓은 너비 적용
+    }
+  }
+}

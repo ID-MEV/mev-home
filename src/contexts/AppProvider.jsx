@@ -7,7 +7,7 @@ const AppProvider = ({ children }) => {
   const [region, setRegion] = useState('');
   const [selectedBackground, setSelectedBackground] = useState(null); // 기본값: null로 초기화하여 로딩 전까지 배경을 표시하지 않음
   const [selectedThemeColor, setSelectedThemeColor] = useState('#1E4040'); // 기본 테마 색상 (나중에 DB에서 불러올 예정)
-  const [weatherLocation, setWeatherLocation] = useState('Seoul'); // 날씨 위치 설정 (기본값 서울)
+  const [weatherLocation, setWeatherLocation] = useState(null); // 날씨 위치 설정 (기본값 서울)
   const [weatherUnit, setWeatherUnit] = useState('celsius'); // 날씨 단위 설정 (기본값 섭씨)
 
   // 앱 시작 시 서버에서 현재 배경화면 설정과 테마 색상 설정을 가져옵니다.

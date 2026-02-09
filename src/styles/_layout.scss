@@ -1,0 +1,532 @@
+// #app-info의 기본 스타일을 전역으로 이동 (39단계 핵심 수정)
+#app-info {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    margin: 40px;
+    margin-left: 0px; // 기본적으로 화면 왼쪽 밖으로 이동
+    opacity: 0; // 기본적으로 숨김
+    transform: translateX(-100%); // 기본적으로 화면 왼쪽 밖으로 이동
+    transition: margin 250ms, opacity 250ms, transform 250ms;
+    z-index: 2;
+
+    // Info 컴포넌트 내부의 Time 및 WeatherSnap 요소 스타일 추가/조정
+    // HTML 구조에 맞게 ID/클래스 사용
+    #app-time {
+        color: var(--color-text-light);
+        font-size: 80px;
+        font-weight: bold;
+        display: flex; // 시와 분/오전을 가로로 정렬
+        align-items: flex-end; // PM/AM과 높이 정렬
+        line-height: 1; // 줄 간격
+    }
+
+    #app-time-time {
+        text-shadow: 2px 2px 2px rgba(black, 0.1); // 그림자 효과
+        font-variant-numeric: tabular-nums; /* 숫자의 너비를 모두 동일하게 고정 */
+        .time-colon { /* ✨ Time.jsx에서 추가한 콜론 span에 대한 스타일 ✨ */
+          color: var(--color-text-light);
+      }
+    }
+
+    #app-time-meridiem {
+        font-size: 0.5em; // Time보다 작게
+        margin-left: 5px; // 시분과 간격
+        color: var(--color-text-light); // 좀 더 어두운 회색
+        text-shadow: 2px 2px 2px rgba(black, 0.1); // 그림자 효과
+    }
+
+    .weather {
+        display: inline-flex; // 아이콘과 온도값을 가로로 정렬
+        height: 20px;
+        margin-bottom: 6px;
+        margin-left: 20px;
+        align-items: center; // 세로 중앙 정렬
+
+        i, span {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        i {
+            color: $yellow; // 날씨 아이콘 색상 (노란색)
+            font-size: 0.9em; // Time의 폰트 크기에 비례하여 작게
+        }
+
+        span {
+            color: var(--color-text-light); // 온도 글자 색상
+        }
+
+        .weather-type {
+            height: 20px;
+            margin-right: 8px; // 아이콘과 온도 값 사이 간격
+        }
+
+        .weather-temperature-value {
+            font-size: 1.5em; // 온도 값 크게
+            height: 20px;
+            margin-left: 5px;
+            font-weight: bold;
+            text-shadow: 2px 2px 2px rgba(black, 0.1); // 그림자 효과
+        }
+
+        .weather-temperature-unit {
+            align-items: flex-start;
+            font-size: 0.8em; // 단위 글자 작게
+            margin-left: 3px;
+        }
+    }
+}
+
+#app {
+    // background-color: gray(30);
+    width: 100%;
+    height: 100dvh; // 뷰포트 전체 높이를 채움
+    position: relative; // 자식 absolute 요소의 기준점
+    overflow: hidden; // 내용이 넘칠 경우 숨김
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .app-main-content {
+      width: 100%;
+      height: 100%; // 부모 높이를 채우도록 설정
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative; // 자식 absolute 요소의 기준점
+      margin: 0 auto; // 중앙 정렬
+    }
+  
+    &.logged-out {
+    #app-info {
+      margin-left: 40px;
+      opacity: 1;
+      transform: translateX(0%);
+    }
+    
+    // #app-background 주석은 삭제
+    
+    #sign-in-button-wrapper {
+      opacity: 1;
+      pointer-events: all;
+      transform: translate(-50%, -40px); 
+    }
+  }
+  
+  &.logging-in,
+  &.verifying-log-in,
+  &.log-in-error {
+    #app-background {
+      #app-background-image {
+        filter: blur(8px);
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &.logged-in {
+    #app-background {
+      #app-background-image {
+        filter: blur(1px);
+        transform: scale(1.2);
+      }
+    }
+  }
+  
+  &.logging-in,
+  &.log-in-error {
+    #app-pin-wrapper {
+      opacity: 1;
+      pointer-events: all;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  &.verifying-log-in {
+    #app-loading-icon {
+      opacity: 1;
+      pointer-events: all;
+      transform: none;
+    }
+  }
+  
+  &.log-in-error {
+    #app-pin-wrapper {
+      #app-pin {
+        .app-pin-digit {
+          background-color: rgba($red, 0.05);
+          border-color: rgba($red, 0.5); 
+        }
+      }
+    }
+  }
+  
+  &.logged-in {
+    #app-menu {
+      height: auto;
+      overflow: initial;
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0%);
+    }
+  }
+  
+  #app-loading-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* ✨ 충분히 높은 z-index. 너무 높으면 다른 요소가 가려지니 1000정도가 무난합니다. */
+    background: rgba(0, 0, 0, 0.3); /* 로딩 중 배경을 살짝 어둡게 (원래 의도했던 어두운 정도) */
+    opacity: 0; /* ✨✨✨ 초기에는 투명하게 숨깁니다. ✨✨✨ */
+    pointer-events: none; /* ✨✨✨ 초기에는 마우스 클릭 등을 무시합니다. ✨✨✨ */
+    transform: none; /* 특별한 변형은 주지 않습니다. */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* ✨✨✨ 부드러운 전환 효과를 다시 적용합니다. ✨✨✨ */
+
+    i { // 로딩 아이콘 (스피너) 자체 스타일
+      animation: spin 1.5s linear infinite; /* 회전 애니메이션 속도 및 방식 */
+      color: #ffffff; /* 아이콘 색상 (흰색) */
+      font-size: 4em; /* 아이콘 크기 */
+    }
+  }
+  
+  #app-background {
+    height: 100%;
+    left: 0px;
+    overflow: hidden;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 1;
+    
+    #app-background-image {
+      background-image: url($backgroundImage);
+      height: 100%;
+      transition: filter 250ms, transform 250ms;
+      width: 100%;
+    }
+  }
+  
+  .user-status-button {
+    cursor: pointer;
+    margin-top: 10px;
+    outline: none;
+    padding: 10px;
+    width: 100px;
+    
+    i {
+      color: gray(245);
+      font-size: 1.25em;
+    }
+  }
+  
+  #sign-in-button-wrapper {
+    bottom: 0px;
+    left: auto;
+    right: 30px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transform: translate(-50%, 40px);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 10;
+    
+    // #sign-in-button {
+    //   &:not(:hover) {
+    //     animation: bounce 3s infinite;
+    //     animation-delay: 3s;
+    //   }
+    // }
+  }
+  
+  .info {
+    align-items: flex-end;
+    display: flex;
+    // .time과 .weather는 ID 선택자로 이미 스타일링했으므로 여기서는 추가 조정만 필요
+    // 이 클래스 정의는 기존 코드에 있는 것이므로 유지합니다.
+    
+    .time {
+      color: gray(245);
+      font-size: 6em;
+      height: 80px;
+      line-height: 80px;
+      text-shadow: 2px 2px 2px rgba(black, 0.1);
+    }
+    
+    .weather {
+      display: inline-flex;
+      height: 20px;
+      margin-bottom: 6px;
+      margin-left: 20px;
+      
+      i, span {
+        align-items: center;
+        display: inline-flex;
+      }
+      
+      i {
+        color: $yellow;
+        font-size: 0.9em;
+      }
+      
+      span {
+        color: white;
+      }
+      
+      .weather-type {
+        height: 20px;
+      }
+      
+      .weather-temperature-value {
+        font-size: 1.5em;
+        height: 20px;
+        margin-left: 5px;
+      }
+      
+      .weather-temperature-unit {
+        align-items: flex-start;
+        font-size: 0.8em;
+        margin-left: 3px;
+      }
+    }
+  }
+  
+  .reminder {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    
+    i, div {
+      display: inline-flex;
+    }
+    
+    i {
+      color: gray(245);
+      font-size: 0.8em;
+      height: 12px;
+      line-height: 12px;
+    }
+    
+    span {
+      color: var(--color-text-light);
+      font-size: 1.1em;
+    }
+    
+    .reminder-icon {
+      align-items: center;
+      height: 20px;
+    }
+    
+    .reminder-time {
+      align-items: flex-end;
+      color: gray(30);
+      font-size: 0.8em;
+      height: 20px;
+    }
+  }
+  
+  #quick-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    overflow: auto;
+    padding-bottom: 5px;
+    width: 100%;
+    z-index: 3;
+    
+    .quick-nav-item {
+      padding: 10px 20px;
+      
+      &:last-of-type {
+        margin-right: 10px;
+      }
+      
+      .quick-nav-item-label {
+        color: var(--color-text-light);
+        text-shadow: 0px 0px 2px rgba(black, 0.1);
+      }
+    }
+  }
+  
+  
+  .menu-section {
+    margin-top: 60px;
+    
+    .menu-section-title {
+      align-items: center;
+      display: flex;
+      gap: 6px;
+      
+      i, span {
+        color: var(--color-text-light);
+      }
+      
+      i {
+        font-size: 1em;
+      }
+      
+      .menu-section-title-text {
+        color: var(--color-text-light);
+        font-size: 1.25em;
+      } 
+    }
+    
+    .menu-section-content {
+      margin-top: 15px;
+      padding-top: 5px;
+    }
+  }
+
+  
+  #app-pin-wrapper {
+    left: 50%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -30%) scale(0.8);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+    
+    #app-pin-label {
+      color: gray(245);
+      font-size: 0.9em;
+      margin: 10px;
+      text-shadow: 2px 2px 2px rgba(black, 0.1);
+      
+      #app-pin-cancel-text {
+        cursor: pointer;
+        margin-left: 2px;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      
+      #app-pin-error-text {
+        color: $red;
+      }
+    }
+    
+    #app-pin-hidden-input {
+      background-color: transparent;
+      border: none;
+      height: 0px;
+      outline: none;
+      pointer-events: none;
+      position: absolute;
+      width: 0px;
+    }
+    
+    #app-pin {
+      display: flex;
+      gap: 10px;
+      
+      .app-pin-digit {
+        align-items: center;
+        background-color: rgba(white, 0.05);
+        border: 1px solid rgba(white, 0.2);
+        border-radius: 10px;
+        box-shadow: 2px 2px 2px rgba(black, 0.06);
+        display: inline-flex;
+        font-size: 3em;
+        height: 80px;
+        justify-content: center;
+        position: relative;
+        transition: background-color 250ms, border-color 250ms;
+        width: 60px;
+        
+        &:after,
+        &:before {
+          box-shadow: 2px 2px 2px rgba(black, 0.06);
+          content: "";
+          position: absolute;
+          transition: opacity 250ms, transform 250ms;
+          z-index: 2;
+        }
+        
+        &:before {
+          background-color: gray(245);
+          border-radius: 10px;
+          bottom: 0px;
+          height: 3px;
+          left: 15%;
+          opacity: 0;
+          transform: translateY(0px);
+          width: 70%;
+        }
+        
+        &:after {
+          background-color: gray(245);
+          border-radius: 20px;
+          height: 20px;
+          opacity: 0;
+          transform: scale(0.25);
+          width: 20px;
+        }
+        
+        &.focused {
+          &:before {
+            animation: blink 2s ease-in-out infinite;
+            opacity: 1;
+            transform: translateY(-10px);
+          }
+        }
+        
+        &.hidden {
+          &:after {
+            opacity: 1;
+            transform: scale(1);
+          }
+          
+          .app-pin-digit-value {
+            opacity: 0;
+            transform: scale(0.25);
+          }
+        }
+        
+        .app-pin-digit-value {
+          color: var(--color-text-light);
+          transition: opacity 250ms, transform 250ms;
+        }
+      }
+    }
+  }
+  
+  #app-menu {
+    height: 100vh;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    position: relative;
+    transform: translateY(-10%);
+    transition: opacity 250ms, transform 250ms;
+    z-index: 2;
+    
+    #app-menu-content-wrapper {
+      background: linear-gradient(to bottom, transparent, gray(30));
+      margin-top: 30vh;
+      min-height: 80vh;
+      padding: 80px;
+      padding-top: 0px;
+      
+      #app-menu-content {
+        margin: auto;
+        max-width: 1600px;
+        position: relative;
+        
+        #app-menu-content-header {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
