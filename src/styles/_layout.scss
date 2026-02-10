@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 // #app-info의 기본 스타일을 전역으로 이동 (39단계 핵심 수정)
 #app-info {
     position: absolute;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ImportantMemos.css';
+import styles from './ImportantMemos.module.scss';
 
 const ImportantMemos = () => {
   const [memos, setMemos] = useState([]);
