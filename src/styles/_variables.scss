@@ -1,3 +1,5 @@
+@use 'sass:color';
+
 @function gray($color){
   @return rgb($color, $color, $color);
 }
@@ -16,5 +18,17 @@ $violet: rgb(103, 58, 183);
 /* -- */
 
 $blue: rgb(66, 165, 245);
+
+// 기본 primary 색상 Sass 변수 정의 (추후 변경 가능)
+$primary-color: #4CAF50; // 기본 테마 색상 (예시: 초록색 계열)
+
+:root {
+  --color-text-light: #FFFFFF;
+  // CSS 변수 --primary-color를 Sass 변수 $primary-color로 설정
+  --primary-color: #{$primary-color};
+  
+  // Sass color.channel 함수를 사용하여 RGB 값을 추출하도록 수정 (Deprecation Warning 해결)
+  --primary-color-rgb: #{color.channel($primary-color, "red", $space: rgb)}, #{color.channel($primary-color, "green", $space: rgb)}, #{color.channel($primary-color, "blue", $space: rgb)};
+}
 
 $backgroundImage: "https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2076&q=80";

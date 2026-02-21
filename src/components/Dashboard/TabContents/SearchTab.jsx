@@ -2,7 +2,7 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../../../contexts/AppContext'; // AppContext 임포트
 import { UserStatus } from '../../../utils/types'; // UserStatus 임포트
-import './SearchTab.css'; // SearchPage의 CSS를 그대로 사용합니다.
+import styles from './SearchTab.module.scss'; // CSS Modules 임포트
 
 const SearchTab = () => {
     const { userStatus, setUserStatusTo } = useContext(AppContext); // AppContext에서 userStatus와 setUserStatusTo 가져오기
@@ -78,10 +78,10 @@ const SearchTab = () => {
     if (!isSearchTabLoggedIn) {
         // 로그인되지 않았다면 로그인 폼을 보여줍니다.
         return (
-            <div className="login-container fade-in">
+            <div className={`${styles.loginContainer} ${styles.fadeIn}`}>
                 <h2>Search 탭 로그인</h2>
                 <form onSubmit={handleLogin}> {/* 폼 제출 시 handleLogin 함수 호출 */}
-                    <div className="login-input-group">
+                    <div className={styles.loginInputGroup}>
                         <label htmlFor="username">아이디:</label>
                         <input
                             type="text"
@@ -92,7 +92,7 @@ const SearchTab = () => {
                             required // 필수 입력 필드
                         />
                     </div>
-                    <div className="login-input-group">
+                    <div className={styles.loginInputGroup}>
                         <label htmlFor="password">비밀번호:</label>
                         <input
                             type="password"
@@ -103,8 +103,8 @@ const SearchTab = () => {
                             required // 필수 입력 필드
                         />
                     </div>
-                    {loginError && <p className="error-message">{loginError}</p>} {/* 에러 메시지 표시 */}
-                    <button type="submit" className="login-submit-button">로그인</button> {/* 폼 제출 버튼 */}
+                    {loginError && <p className={styles.errorMessage}>{loginError}</p>} {/* 에러 메시지 표시 */}
+                    <button type="submit" className={styles.loginSubmitButton}>로그인</button> {/* 폼 제출 버튼 */}
                 </form>
             </div>
         );
@@ -112,8 +112,8 @@ const SearchTab = () => {
 
     // 로그인 성공 시 렌더링될 검색 기능 (기존 SearchPage 내용)
     return (
-        <div className="search-container fade-in">
-            <h1>다양한 조건으로 검색하는 페이지</h1>
+        <div className={`${styles.searchContainer} ${styles.fadeIn}`}>
+            <h1>회원 검색</h1>
             <div>
                 <select value={searchOption} onChange={handleSearchOptionChange}>
                     <option value="이름">이름</option>
@@ -132,8 +132,8 @@ const SearchTab = () => {
             </div>
 
             {results.length > 0 ? (
-                <div className="search-results-table-container">
-                    <table className="search-results-table">
+                <div className={styles.searchResultsTableContainer}>
+                    <table className={styles.searchResultsTable}>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -171,7 +171,10 @@ const SearchTab = () => {
                     </table>
                 </div>
             ) : (
-                <p>{input ? '검색 결과가 없습니다.' : '검색어를 입력하세요.'}</p>
+                <div className={styles.emptyStateMessage}>
+                    <p>{input ? '검색 결과가 없습니다.' : '검색어를 입력하세요.'}</p>
+                    <p>검색 조건을 선택하고 검색어를 입력해보세요.</p>
+                </div>
             )}
         </div>
     );
