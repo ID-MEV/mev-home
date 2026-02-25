@@ -181,6 +181,7 @@
     padding: 10px 10px; 
     text-align: left;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+    font-size: 0.8em;
   }
 
   th {
@@ -193,7 +194,7 @@
     ); 
     color: $primary-color; 
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 0.8em;
     position: sticky; 
     top: 0;
     z-index: 1;
@@ -229,13 +230,14 @@
     text-overflow: ellipsis;
   }
 
-  th:nth-child(4), td:nth-child(4), 
-  th:nth-child(5), td:nth-child(5), 
-  th:nth-child(6), td:nth-child(6), 
-  th:nth-child(7), td:nth-child(7) { 
-    text-align: center;
-  }
-
+    th:nth-child(4), td:nth-child(4),
+    th:nth-child(5), td:nth-child(5),
+    th:nth-child(6), td:nth-child(6),
+    th:nth-child(7), td:nth-child(7) {
+      text-align: center;
+      white-space: nowrap;
+      min-width: 35px;
+    }
   td:nth-child(11) { 
     max-width: 250px; 
     white-space: nowrap;
