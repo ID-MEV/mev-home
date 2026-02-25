@@ -13,9 +13,10 @@
     top: 0;
     left: 0;
 
-    width: calc(100% - 50px);   /* 양쪽(좌우)에 50px씩 여백을 주기 위해 100%에서 100px을 뺌 */
-    height: calc(100% - 60px);   /* 상하에 30px씩 여백을 주기 위해 100%에서 60px을 뺌 */
-    margin: 30px 50px;           /* 상하 30px, 좌우 50px의 바깥 여백을 줍니다. */
+    width: 1116px;
+    max-width: 1116px;
+    height: calc(100% - 60px);
+    margin: 30px auto;
     border-radius: 15px;         /* 대시보드 전체 모서리를 둥글게 합니다. */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 대시보드 자체에 그림자 추가 (선택 사항) */
     min-height: calc(100vh - 50px);

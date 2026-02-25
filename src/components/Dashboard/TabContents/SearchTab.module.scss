@@ -245,12 +245,11 @@
     text-overflow: ellipsis;
   }
 
-  td:nth-child(12) { /* 주소 */
-    max-width: 300px; 
-    white-space: normal;
-    word-break: break-word; /* 긴 단어의 경우 줄바꿈 허용 */
-  }
-}
+      td:nth-child(12) { /* 주소 */
+        max-width: 300px;
+        white-space: normal;
+        word-break: break-word; /* 긴 단어의 경우 줄바꿈 허용 */
+      }}
 
 .emptyStateMessage {
   text-align: center;
@@ -265,5 +264,46 @@
     font-size: 0.9em;
     margin-top: 10px;
     color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@media (max-width: 768px) {
+  .searchResultsTable {
+    td:nth-child(3) { /* 순 */
+      white-space: nowrap;
+      min-width: 25px;
+      max-width: none;
+      word-break: normal;
+    }
+    td:nth-child(8) { /* 생년월일 */
+      white-space: nowrap;
+      min-width: 50px;
+      max-width: none;
+      word-break: normal;
+    }
+    td:nth-child(9) { /* 자택번호 */
+      white-space: nowrap;
+      min-width: 60px;
+      max-width: none;
+      word-break: normal;
+    }
+    td:nth-child(10) { /* 휴대번호 */
+      white-space: nowrap;
+      min-width: 60px;
+      max-width: none;
+      word-break: normal;
+    }
+    td:nth-child(11) { /* 가족사항 */
+      white-space: nowrap;
+      min-width: 100px;
+      max-width: none;
+      word-break: normal;
+    }
+    td:nth-child(12) { /* 주소 */
+      white-space: nowrap;
+      min-width: 175px; /* Allocate sufficient width for full address visibility */
+      max-width: none; /* Override any max-width to allow full expansion */
+      word-break: normal; /* Override word-break to work with nowrap */
+    }
   }
 }
