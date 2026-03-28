@@ -36,7 +36,16 @@ const Time = () => { // <-- ': React.FC' 부분을 삭제합니다.
         {date.getHours() >= 12 ? "PM" : "AM"}
       </div>
       <div id="app-time-time" className="time-display" style={{ fontFeatureSettings: '"tnum"' }}>
-        {T.formatHours(date.getHours())}<span className='time-colon' style={{ opacity: showColon ? 1 : 0 }}>:</span>{T.formatSegment(date.getMinutes())}
+        {T.formatHours(date.getHours())}
+
+        {/* 깜박거리는 콜론과 그냥 콜론 */}
+        {/* <span className='time-colon' style={{ opacity: showColon ? 1 : 0 }}>:</span> */}
+        <span>:</span>
+        {T.formatSegment(date.getMinutes())}
+        {/* 깜박거리는 콜론과 그냥 콜론 */}
+        {/* <span className='time-colon' style={{ opacity: showColon ? 1 : 0 }}>:</span> */}
+        <span>:</span>
+        
         <span className='time-seconds'>
           {T.formatSegment(date.getSeconds())}
         </span>

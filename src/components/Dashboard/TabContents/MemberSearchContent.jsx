@@ -30,7 +30,7 @@ const MemberSearchContent = () => {
     // to apply the visual styling that was intended for the search section.
     return (
         <div className={`${styles.memberSearchContentWrapper} ${styles.fadeIn}`}>
-            <h1>회원 검색</h1>
+            <h1>명단 검색</h1>
             <div>
                 <select value={searchOption} onChange={handleSearchOptionChange}>
                     <option value="이름">이름</option>

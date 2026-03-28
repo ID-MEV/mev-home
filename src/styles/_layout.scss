@@ -17,10 +17,10 @@
     #app-time {
         color: var(--color-text-light);
         font-size: 80px;
-        font-weight: bold;
-        display: flex; // 시와 분/오전을 가로로 정렬
-        align-items: flex-end; // PM/AM과 높이 정렬
-        line-height: 1; // 줄 간격
+        font-weight: 700; // bold 대신 700으로 명시적으로 설정
+        display: flex;
+        align-items: flex-end;
+        line-height: 1;
     }
 
     #app-time-time {
@@ -28,7 +28,10 @@
         font-variant-numeric: tabular-nums; /* 숫자의 너비를 모두 동일하게 고정 */
         .time-colon { /* ✨ Time.jsx에서 추가한 콜론 span에 대한 스타일 ✨ */
           color: var(--color-text-light);
-      }
+        }
+        .time-seconds { /* 초 단위 글꼴 일관성 유지 */
+          font-weight: 700; // 초 단위도 700으로 명시적으로 설정
+        }
     }
 
     #app-time-meridiem {
